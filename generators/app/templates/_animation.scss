@@ -1,0 +1,13 @@
+//  ANIMATION SCSS
+//  
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+
+//  default transition
+    a,
+    input,
+    button {
+        transition: all 150ms ease;
+    }

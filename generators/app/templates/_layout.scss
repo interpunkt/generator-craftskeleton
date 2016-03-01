@@ -1,0 +1,22 @@
+//  LAYOUT SCSS
+//  
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  reset: box model
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+//  reset: img & svg
+    img, svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+
+//  default template settings
+//  --------------------------------------------------------

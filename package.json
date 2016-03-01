@@ -1,0 +1,53 @@
+{
+  "name": "generator-craftskeleton",
+  "version": "0.1.1",
+  "description": "Starterkit for Craft CMS (Mutli Envs, Gulp and Bower)",
+  "homepage": "",
+  "author": {
+    "name": "Selim Imoberdorf",
+    "email": "si@inter-punkt.ch",
+    "url": "inter-punkt.ch"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "Craft",
+    "CMS",
+    "Heartyconfig",
+    "SASS",
+    "SCSS",
+    "Gulp",
+    "Bower"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.21.1",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "yeoman-assert": "^2.0.0",
+    "eslint-config-xo-space": "^0.7.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-coveralls": "^0.1.0"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "repository": "interpunkt/generator-craftskeleton",
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,148 @@
+//  TYPOGRAPHY SCSS
+//  
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+
+//  font variables
+//  --------------------------------------------------------
+
+    $font-primary:                      'Helvetica Neue', Helvetica, Arial, sans-serif;
+    $font-weight--light:                300;
+    $font-weight--normal:               400;
+    $font-weight--medium:               600;
+
+    $base__font-size:                   16px;
+    $base__line:                        1.4;
+
+    $base__heading--h1:                 60px;
+    $base__heading--h2:                 50px;
+    $base__heading--h3:                 40px;
+    $base__heading--h4:                 30px;
+    $base__heading--h5:                 20px;
+    $base__heading--h6:                 16px;
+    $base__line--heading:               1.2;
+
+
+//  font definition
+//  --------------------------------------------------------
+
+//  reset default font
+    body {
+      color: $color-font--primary;
+      font-family: $font-primary;
+      font-size: $base__font-size;
+      line-height: $base__line;
+    }
+
+
+//  headings
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: $color-primary;
+      font-family: $font-primary;
+      line-height: $base__line--heading;
+
+      &.gutter {
+        @extend %gutter;
+      }
+    }
+
+    h1 {
+        font-size: $base__heading--h1;
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    h2 {
+      font-size: $base__heading--h2;
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    h3 {
+      font-size: $base__heading--h3;
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    h4 {
+      font-size: $base__heading--h4; 
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    h5 {
+      font-size: $base__heading--h4; 
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+    h6 {
+      font-size: $base__heading--h4; 
+
+        &.first {
+          margin-top: 0;
+        }
+    }
+
+
+//  copy text
+    p {
+      font-size: $base__font-size;
+    }
+
+    b,
+    strong {
+      color: $black;
+      font-weight: $font-weight--medium;
+    }
+
+
+//  links
+    a,
+    a:active,
+    a:focus,
+    a:hover {
+      text-decoration: none;
+      outline: none;
+    }
+
+    a {
+      color: $color-primary;
+    }
+
+    a:active,
+    a:focus,
+    a:hover {
+      color: $color-secondary;
+    }
+
+
+//  selection colors
+//  --------------------------------------------------------
+
+    ::selection {
+      background: $color-primary;
+      color: $black;
+      text-shadow: none;
+    }
+
+    ::-moz-selection {
+      background: $color-primary;
+      color: $black;
+      text-shadow: none;
+    }

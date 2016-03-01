@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    {% include '_partials/_head.html' %}
+</head>
+
+<body>
+<!--[if lte IE 9]><div class="fallback"><h1>Ihr Browser ist veraltet.<br /><b>— Bitte Updaten.</b></h1><p>Sie verwenden einen veralteten Browser (Internet Explorer 9 oder tiefer) mit <b>Sicherheitsschwachstellen</b> – daher kann die Webseite nicht angezeigt werden.</p><p>Aktualisieren Sie jetzt Ihren Web-Browser um die Webseite zu besuchen.<br />Mit einem Update surfen Sie in Zukunft <b>sicherer</b> und unterstützen die <b>moderne Webentwicklung</b>.</p><p>Danke für Ihr Verständnis<br /><a href="https://selim-imoberdorf.ch" target="blank">Selim Imoberdorf – Webdesign & Responsive Solutions</a></<p><a href="http://www.browser-update.org/de/update.html" class="fallback__link"><b>Mein Browser jetzt updaten (Anleitung)</b></a></p></div><![endif]-->
+
+    <!-- start: page content -->    
+    {#
+    ####################################################
+        Block: Content
+    ####################################################
+    #}
+    {% block content %}{% endblock %}
+    <!-- start: page content -->
+
+  {% if craft.config.devMode %}
+  <link rel="stylesheet" href="dev/scripts/main.js">
+  {% else %}
+  <link rel="stylesheet" href="/assets/scripts/app.min.css">
+  {% endif %}
+</body>
+</html>

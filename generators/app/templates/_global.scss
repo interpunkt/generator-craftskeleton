@@ -1,0 +1,127 @@
+//  GLOBAL SCSS
+//  
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+
+//  color variables
+//  --------------------------------------------------------
+
+//  base colors
+    $white:                             #ffffff;
+    $black:                             #000000;
+
+//  color mapping
+    $color-primary:                     $black;
+    $color-secondary:                   $white;
+
+    $color-font--primary:               $black;
+    $color-font--secondary:             $white;
+
+
+//  default variables
+//  --------------------------------------------------------
+
+//  bp like @include breakpoint([xs, s, m, l or NUMBER])
+    $media-direction: max;
+
+    // $breakpoints: (
+    //   'xs':           480px,
+    //   's':            768px,
+    //   'm':            960px,
+    //   'l':            1080px,
+    // );
+
+//  wrapper sizes
+    $wrapper:            1080px;
+
+
+//  space rythem
+    $gutter:             10px;
+
+
+//  default extends
+//  --------------------------------------------------------
+
+//  wrapper
+    .wrapper {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding-right: $gutter;
+      padding-left: $gutter;
+    }
+
+//  gutter
+    %gutter {
+      padding-right: $gutter;
+      padding-left: $gutter;
+    }
+
+
+//  default mixins
+//  --------------------------------------------------------
+
+//  breakpoints
+
+    //  horizontal
+    @mixin breakpoint($breakpoint,$direction: $media-direction) {
+      @if map-has-key($breakpoints, $breakpoint) {
+        @media (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
+          @content;
+        }
+      }
+      @else if unitless($breakpoint) {
+        $breakpoint: $breakpoint + 0px;
+
+        @media (#{$direction}-width: $breakpoint) {
+          @content;
+        }
+      }
+    }
+    
+    //  vertical
+    @mixin breakpointV($breakpoint,$direction: $media-direction-v) {
+      @if map-has-key($breakpoints-v, $breakpoint) {
+        @media (#{$direction}-height: #{map-get($breakpoints-v, $breakpoint)}) {
+          @content;
+        }
+      }
+      @else if unitless($breakpoint) {
+        $breakpoint: $breakpoint + 0px;
+
+        @media (#{$direction}-height: $breakpoint) {
+          @content;
+        }
+      }
+    }
+
+
+//  arrows
+
+    @mixin arrow($direction, $size, $color){
+      content: '';
+      display: block;
+      position: absolute;
+      height: 0; width: 0;
+      @if ($direction == 'up'){
+        border-bottom: $size solid $color;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+      }
+      @else if ($direction == 'down'){
+        border-top: $size solid $color;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+      }
+      @else if ($direction == 'left'){
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+      }
+      @else if ($direction == 'right'){
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+      }
+    }

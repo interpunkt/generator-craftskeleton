@@ -1,0 +1,6 @@
+# Don't allow web crawlers to index Craft
+User-agent: *
+Disallow: /config/
+Disallow: /craft/
+Disallow: /plugins/
+Disallow: /templates/

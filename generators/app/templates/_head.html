@@ -1,0 +1,44 @@
+{#
+########################################################
+########################################################
+    Include: Metadata & Files
+########################################################
+########################################################
+#}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- meta site -->
+<title>{{ siteName }}{% if seoTitle is defined %} – {{ seoTitle }}{% endif %}</title>
+<link rel="home" href="{{ siteUrl }}" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!-- favicons -->
+{# Mit dem Favicon Generator erstellen: http://realfavicongenerator.net/ #}
+
+<!-- meta facebook -->
+<meta property="og:title" content="" />
+<meta property="og:image" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ url(craft.request.path) }}" />
+<meta property="og:site_name" content="{{ siteName }}" />
+<meta property="og:description" content="}" />
+
+<!-- Meta Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ siteName }}" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:image" content="" />
+
+<!-- stylesheet -->
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="/assets/style/fallback.min.css">
+<![endif]-->
+
+{% if craft.config.devMode %}
+<link rel="stylesheet" href="dev/styles/main.css">
+{% else %}
+<link rel="stylesheet" href="/assets/styles/main.min.css">
+{% endif %}

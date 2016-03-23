@@ -1,10 +1,12 @@
 # default files & folders
 .DS_Store
 .sass-cache
-node_modules
-bower_components
 
 # craft related
 config/config.local.php
 craft
 public/uploads/*/*
+
+# dev related
+node_modules
+bower_components

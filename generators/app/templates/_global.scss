@@ -1,9 +1,7 @@
 //  GLOBAL SCSS
-//  
 //  copyright 2015 - 2016 by inter-punkt.ag
 //  autor: selim imoberdorf
 //  --------------------------------------------------------
-
 
 //  color variables
 //  --------------------------------------------------------
@@ -24,39 +22,36 @@
 //  --------------------------------------------------------
 
 //  bp like @include breakpoint([xs, s, m, l or NUMBER])
-    $media-direction: max;
+    $media-direction: min;
 
-    // $breakpoints: (
-    //   'xs':           480px,
-    //   's':            768px,
-    //   'm':            960px,
-    //   'l':            1080px,
+    $breakpoints: (
+        'xs':           480px,
+        's':            768px,
+        'm':            960px,
+        'l':            1024px,
+        'xl':           1200px,
+    );
+
+
+//  bp portrait
+    // $media-direction-v: min;
+
+    // $breakpoints-v: (
+    //     'xs':           480px,
+    //     's':            768px,
+    //     'm':            960px,
+    //     'l':            1024px,
+    //     'xl':           1200px,
     // );
 
 //  wrapper sizes
-    $wrapper:            1080px;
+    $wrapper:             640px;
 
 
 //  space rythem
-    $gutter:             10px;
-
-
-//  default extends
-//  --------------------------------------------------------
-
-//  wrapper
-    .wrapper {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding-right: $gutter;
-      padding-left: $gutter;
-    }
-
-//  gutter
-    %gutter {
-      padding-right: $gutter;
-      padding-left: $gutter;
-    }
+    $space:               20px;
+    $space-medium:        $space * 2;
+    $space-big:           $space * 3;
 
 
 //  default mixins
@@ -66,16 +61,16 @@
 
     //  horizontal
     @mixin breakpoint($breakpoint,$direction: $media-direction) {
-      @if map-has-key($breakpoints, $breakpoint) {
+        @if map-has-key($breakpoints, $breakpoint) {
         @media (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
-          @content;
+            @content;
         }
       }
       @else if unitless($breakpoint) {
         $breakpoint: $breakpoint + 0px;
 
         @media (#{$direction}-width: $breakpoint) {
-          @content;
+            @content;
         }
       }
     }
@@ -84,44 +79,43 @@
     @mixin breakpointV($breakpoint,$direction: $media-direction-v) {
       @if map-has-key($breakpoints-v, $breakpoint) {
         @media (#{$direction}-height: #{map-get($breakpoints-v, $breakpoint)}) {
-          @content;
+            @content;
         }
       }
       @else if unitless($breakpoint) {
         $breakpoint: $breakpoint + 0px;
 
         @media (#{$direction}-height: $breakpoint) {
-          @content;
+            @content;
         }
       }
     }
 
 
 //  arrows
-
     @mixin arrow($direction, $size, $color){
-      content: '';
-      display: block;
-      position: absolute;
-      height: 0; width: 0;
-      @if ($direction == 'up'){
-        border-bottom: $size solid $color;
-        border-left: $size solid transparent;
-        border-right: $size solid transparent;
-      }
-      @else if ($direction == 'down'){
-        border-top: $size solid $color;
-        border-left: $size solid transparent;
-        border-right: $size solid transparent;
-      }
-      @else if ($direction == 'left'){
-        border-top: $size solid transparent;
-        border-bottom: $size solid transparent;
-        border-right: $size solid $color;
-      }
-      @else if ($direction == 'right'){
-        border-top: $size solid transparent;
-        border-bottom: $size solid transparent;
-        border-left: $size solid $color;
-      }
+        content: '';
+        display: block;
+        position: absolute;
+        height: 0; width: 0;
+        @if ($direction == 'up'){
+            border-bottom: $size solid $color;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+        }
+        @else if ($direction == 'down'){
+            border-top: $size solid $color;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+        }
+        @else if ($direction == 'left'){
+            border-top: $size solid transparent;
+            border-bottom: $size solid transparent;
+            border-right: $size solid $color;
+        }
+        @else if ($direction == 'right'){
+            border-top: $size solid transparent;
+            border-bottom: $size solid transparent;
+            border-left: $size solid $color;
+        }
     }

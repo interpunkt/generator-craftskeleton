@@ -1,0 +1,34 @@
+{#
+########################################################
+    include: head data
+########################################################
+#}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- stylesheet -->
+    {% if craft.config.devMode %}
+        <link rel="stylesheet" href="dev/styles/main.css">
+        <!--[if lt IE 10]>
+        <link rel="stylesheet" href="dev/styles/fallback.css">
+        <![endif]-->
+    {% else %}
+        {% cache %}
+        <link rel="stylesheet" href="/assets/styles/main.min.css">
+        <!--[if lt IE 10]>
+        <link rel="stylesheet" href="/assets/style/fallback.min.css">
+        <![endif]-->
+        {% endcache %}
+    {% endif %}
+
+    <!-- seo / social -->
+    {% hook 'seomaticRender' %}
+
+    <!-- favicons -->
+    {% cache %}
+    {# Mit dem Favicon Generator erstellen: http://realfavicongenerator.net/ #}
+    {% endcache %}
+</head>

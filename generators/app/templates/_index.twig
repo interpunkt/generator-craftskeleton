@@ -1,0 +1,21 @@
+{#
+########################################################
+    block: index
+########################################################
+#}
+
+{# Layout Setting #}
+{% extends "_layout/_main" %}
+
+
+{# Block: home #}
+{% block content %}
+{% cache %}
+
+    <section class="wrapper">
+        <h1>Deine Craft CMS<br>Installation funktioniert.</h1>
+        <p>by <a href="http://inter-punkt.ch" target="_blank">inter-punkt ag.</a> – Selim Imoberdorf</p>
+    </section>
+
+{% endcache %}
+{% endblock %}

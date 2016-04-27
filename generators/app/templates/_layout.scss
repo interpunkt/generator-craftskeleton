@@ -61,23 +61,9 @@
 //  --------------------------------------------------------
 
     .wrapper {
-        width: 100%;
-        min-height: 100vh;
-        padding: $space-big $space $space-big * 2;
-        background-color: rgba($color-third, 0.85);
-
-        @include breakpoint(xs) {
-            padding: $space-big;
-        }
-
-        &--home {
-            background-color: inherit;
-        }
-
-        &__inner {
-            max-width: $wrapper;
-            margin: 0 auto;
-        }
+        max-width: $wrapper;
+        margin: 0 auto;
+        padding: $space-big $space;
     }
 
 //  gutter

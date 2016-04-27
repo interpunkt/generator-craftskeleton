@@ -10,3 +10,4 @@ public/uploads/*/*
 # dev related
 node_modules
 bower_components
+public/dev/bower_components/

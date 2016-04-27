@@ -1,0 +1,24 @@
+{#
+########################################################
+    partial: scripts
+########################################################
+#}
+
+{% if craft.config.devMode %}
+    
+    {# Frontend Dependencies via bower.json: bower install --save [Modulname] #}
+    <script src="/dev/bower_components/webfontloader/webfontloader.js"></script>    
+    <script src="/dev/bower_components/lazysizes/lazysizes.js"></script>
+    <script src="/dev/bower_components/lazysizes/plugins/respimg/ls.respimg.min.js"></script>
+    <script src="/dev/bower_components/lazysizes/plugins/bgset/ls.bgset.min.js"></script>
+
+    {# Init Files and own Javascript Files #}
+    <script src="/dev/scripts/main.js"></script>
+
+{% else %}
+
+    {% cache %}
+    <script src="/assets/scripts/app.min.js"></script>
+    {% endcache %}
+
+{% endif %}

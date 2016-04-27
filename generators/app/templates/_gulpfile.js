@@ -80,7 +80,12 @@ gulp.task('fallback', function() {
 
 //  build-task: scripts
 gulp.task('scripts', function() {
-    gulp.src(['public/dev/scripts/**/*.js'])
+    gulp.src([
+        'public/dev/bower_components/webfontloader/webfontloader.js',
+        'public/dev/bower_components/lazysizes/lazysizes.js',
+        'public/dev/bower_components/lazysizes/plugins/respimg/ls.respimg.min.js',
+        'public/dev/bower_components/lazysizes/plugins/bgset/ls.bgset.min.js',
+        'public/dev/scripts/main.js'])
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename({

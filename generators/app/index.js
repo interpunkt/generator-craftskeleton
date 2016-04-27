@@ -122,6 +122,7 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         //  --------------------------------------------------------
         //  copy dev & git related files
         //  --------------------------------------------------------
+        this.copy('_bowerrc', '.bowerrc');
         this.copy('_package.json', 'package.json');
         this.copy('_gitignore', '.gitignore');
         this.fs.copyTpl(
@@ -146,6 +147,8 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         this.directory('public/assets');
         this.directory('public/assets/fonts');
         this.directory('public/assets/images');
+        this.directory('public/assets/vendor');
+        this.directory('public/assets/vendor/respimg');
         this.directory('public/dev');
         this.directory('public/dev/scripts');
         this.directory('public/dev/src');
@@ -194,6 +197,7 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         this.copy('_gitkeep', 'public/assets/images/.gitkeep');
         this.copy('_gitkeep', 'public/uploads/.gitkeep');
 
+        this.copy('_ls.respimg.min.js', 'public/assets/vendor/respimg/ls.respimg.min.js');
         this.copy('_main.js', 'public/dev/scripts/main.js');
 
         this.copy('_main.scss', 'public/dev/src/main.scss');
@@ -208,8 +212,9 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         //  --------------------------------------------------------
         //  copy template related files
         //  --------------------------------------------------------
-        this.copy('_main.twig', 'templates/_layout/_main.twig');
-        this.copy('_head.twig', 'templates/_partials/_head.twig');
+        this.copy('_template-main.twig', 'templates/_layout/_template-main.twig');
+        this.copy('_template-head.twig', 'templates/_layout/_template-head.twig');
+        this.copy('_template-scripts.twig', 'templates/_layout/_template-scripts.twig');
 
         this.copy('_404.twig', 'templates/404.twig');
         this.copy('_cs.twig', 'templates/cs.twig');

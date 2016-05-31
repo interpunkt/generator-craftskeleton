@@ -4,19 +4,16 @@
 ***
 
 ## 1. Installation
-First, install [Craft CLI](https://github.com/rsanchez/craft-cli) to download Craft CMS trough your command line (it’s used by the generator).
 
-### The Craft CLI 
+### 1.1. The Craft CLI
 The generator needs this [Craft CLI](https://github.com/rsanchez/craft-cli) for installing it trough bash.
-
 ```bash
 brew tap rsanchez/homebrew-craft-cli
 brew install craft-cli
 ```
 
-### The Generator
+### 1.2. The Generator
 Second, install [Yeoman](http://yeoman.io) and generator-craftskeleton using [npm](https://www.npmjs.com/) (I assume you have pre-installed [node.js](https://nodejs.org/)).
-
 ```bash
 npm install -g yo
 npm install -g generator-craftskeleton
@@ -31,7 +28,7 @@ yo craftskeleton
 ```
 
 ### The Craft CMS Plugins
-This generator needs some plugins for the whole setup. Download this plugins and move the files in `/plugins/`. Of course you have to remove the `-master` in the directoryname if it exists.
+This generator needs some plugins for the whole setup. Download this plugins with `wget` in `/plugins/`. Of course you have to remove the `-master` in the directoryname if it exists.
 
 - [Hearty Config](https://github.com/mmikkel/HeartyConfig-Craft)
 - [Imager](https://github.com/aelvan/Imager-Craft)

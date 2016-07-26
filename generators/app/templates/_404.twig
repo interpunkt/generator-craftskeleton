@@ -10,13 +10,13 @@
 
 {# Block: Content #}
 {% block content %}
-{% cache %}
+    {% cache if not craft.config.devMode %}
 
     <section class="wrapper">
         <h1>Seite nicht gefunden</h1>
         <p>Die Seite, welche Sie aufgerufen haben existiert leider nicht (mehr).</p>
-        <p><a href="{{ siteUrl }}" alt="{{siteName}}">Zur Startseite</a></p>
+        <p><a href="{{ siteUrl }}" alt="{{ siteName }}">Zur Startseite</a></p>
     </section>
 
-{% endcache %}
+    {% endcache %}
 {% endblock %}

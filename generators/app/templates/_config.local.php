@@ -20,9 +20,9 @@ return array(
     'translationDebugOutput' => false,
     'useCompressedJs' => false,
     'enableTemplateCaching' => false,
-    'userSessionDuration'           => 'P101Y',
+    'userSessionDuration' => 'P101Y',
     'rememberedUserSessionDuration' => 'P101Y',
-    'rememberUsernameDuration'      => 'P101Y',
+    'rememberUsernameDuration' => 'P101Y',
 
     'backupDbOnUpdate' => true,
 

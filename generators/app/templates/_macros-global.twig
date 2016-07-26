@@ -1,0 +1,11 @@
+{#
+########################################################
+    macros global list
+########################################################
+#}
+
+{# nav: firstLevel #}
+{% macro navFirstActive(segment) %}{% if craft.request.firstSegment == segment %} isActive{% endif %}{% endmacro %}
+
+{# nav: secondLevel #}
+{% macro navSecondActive(segment) %}{% if craft.request.getLastSegment() == segment %} isActive{% endif %}{% endmacro %}

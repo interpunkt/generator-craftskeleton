@@ -1,0 +1,131 @@
+//  TYPOGRAPHY SCSS
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  font variables
+//  --------------------------------------------------------
+
+$font-primary : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-weight--light : 300;
+$font-weight--normal : 400;
+$font-weight--medium : 600;
+
+$base__font-size : 16px;
+$base__line : 1.4;
+
+$base__heading--h1 : 60px;
+$base__heading--h2 : 50px;
+$base__heading--h3 : 40px;
+$base__heading--h4 : 30px;
+$base__heading--h5 : 20px;
+$base__heading--h6 : 16px;
+$base__line--heading : 1.2;
+
+//  --------------------------------------------------------
+//  reset body
+//  --------------------------------------------------------
+
+body {
+  color       : $black;
+  font-family : $font-primary;
+  font-size   : $base__font-size;
+  line-height : $base__line;
+}
+
+//  --------------------------------------------------------
+//  headings
+//  --------------------------------------------------------
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color       : $black;
+  font-family : $font-primary;
+  line-height : $base__line--heading;
+
+  &.first {
+    margin-top : 0;
+  }
+
+  &.gutter {
+    @extend %gutter;
+  }
+}
+
+h1 {
+  font-size : $base__heading--h1;
+}
+
+h2 {
+  font-size : $base__heading--h2;
+}
+
+h3 {
+  font-size : $base__heading--h3;
+}
+
+h4 {
+  font-size : $base__heading--h4;
+}
+
+h5 {
+  font-size : $base__heading--h4;
+}
+
+h6 {
+  font-size : $base__heading--h4;
+}
+
+//  --------------------------------------------------------
+//  p, a and more
+//  --------------------------------------------------------
+
+p {
+  font-size : $base__font-size;
+}
+
+b,
+strong {
+  font-weight : $font-weight--medium;
+}
+
+//  links
+a,
+a:active,
+a:focus,
+a:hover {
+  text-decoration : none;
+  outline         : none;
+}
+
+a {
+  @extend %transition;
+  color : $black;
+}
+
+a:active,
+a:focus,
+a:hover {
+  color : $black;
+}
+
+//  --------------------------------------------------------
+//  selection
+//  --------------------------------------------------------
+
+::selection {
+  background  : $black;
+  color       : $white;
+  text-shadow : none;
+}
+
+::-moz-selection {
+  background  : $black;
+  color       : $white;
+  text-shadow : none;
+}

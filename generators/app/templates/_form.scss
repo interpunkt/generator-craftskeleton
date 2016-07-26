@@ -1,0 +1,77 @@
+//  DEFAULT FORM SCSS
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  resets
+//  --------------------------------------------------------
+
+input,
+textarea {
+    border        : none;
+    outline       : none;
+    box-shadow    : inherit;
+    border-radius : inherit;
+}
+
+textarea {
+    resize : none;
+}
+
+//  buttons
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    box-sizing : content-box;
+}
+
+//  reset `button` and button-style `input` default styles
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    background          : none;
+    border              : 0;
+    color               : inherit;
+    font                : inherit;
+    line-height         : normal;
+    overflow            : visible;
+    padding             : 0;
+    -webkit-appearance  : button;
+    -webkit-user-select : none;
+    -moz-user-select    : none;
+    -ms-user-select     : none;
+}
+
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus,
+button:focus {
+    outline : none;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border  : 0;
+    padding : 0;
+}
+
+//  palceholder
+::-webkit-input-placeholder {
+    color : $black;
+}
+
+:-moz-placeholder {
+    color : $black;
+}
+
+::-moz-placeholder {
+    color : $black;
+}
+
+:-ms-input-placeholder {
+    color : $black;
+}

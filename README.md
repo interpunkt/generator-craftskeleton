@@ -30,7 +30,6 @@ yo craftskeleton
 ### The Craft CMS Plugins
 This generator needs some plugins for the whole setup. Download this plugins with `wget` in `/plugins/`. Of course you have to remove the `-master` in the directoryname if it exists.
 
-- [Hearty Config](https://github.com/mmikkel/HeartyConfig-Craft)
 - [Imager](https://github.com/aelvan/Imager-Craft)
 - [Minify](https://github.com/nystudio107/minify)
 - [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
@@ -47,8 +46,7 @@ bower install --save [DEPENDENCIE NAME]
 
 ***
 ## Thanks [WebDevs Family](http://webdevs.xyz/)
-Big thanks to my friends [Sascha Fuchs](https://github.com/gisu), [David Hellmann](https://github.com/davidhellmann) and [Martin Herweg](https://github.com/martinherweg) and of course to all the members from our Slack Channel [webdevs](http://webdevs.xyz/) (feel free to join us).  
-Your helped me a lot and you guys are a big inspiration!
+Big thanks to my friends [Sascha Fuchs](https://github.com/gisu), [David Hellmann](https://github.com/davidhellmann) and [Martin Herweg](https://github.com/martinherweg) and of course to all the members from our Slack Channel [webdevs](http://webdevs.xyz/) (feel free to join us). Your helped me a lot and you guys are a big inspiration!
 
 ***
 ## License

@@ -5,9 +5,9 @@
 #}
 
 {% if craft.config.devMode %}
-    
+
     {# Frontend Dependencies via bower.json: bower install --save [Modulname] #}
-    <script src="/dev/bower_components/webfontloader/webfontloader.js"></script>    
+    <script src="/dev/bower_components/webfontloader/webfontloader.js"></script>
     <script src="/dev/bower_components/lazysizes/lazysizes.js"></script>
     <script src="/dev/bower_components/lazysizes/plugins/respimg/ls.respimg.min.js"></script>
     <script src="/dev/bower_components/lazysizes/plugins/bgset/ls.bgset.min.js"></script>
@@ -17,7 +17,7 @@
 
 {% else %}
 
-    {% cache %}
+    {% cache if not craft.config.devMode %}
     <script src="/assets/scripts/app.min.js"></script>
     {% endcache %}
 

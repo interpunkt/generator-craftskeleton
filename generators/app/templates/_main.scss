@@ -6,19 +6,40 @@
 
 @charset "UTF-8";
 
-//  vendor styles
-    @import "../bower_components/inuit-normalize.css/generic.normalize";
+//  --------------------------------------------------------
+//  vendor
+//  --------------------------------------------------------
+@import "../bower_components/inuit-normalize.css/generic.normalize";
 
-//  variables & defaults
-    @import "global";
-    @import "typography";
+//  --------------------------------------------------------
+//  mixins
+//  --------------------------------------------------------
+@import "mixins/mixins-global";
 
-//  nav & layouts
-    @import "layout";
-    @import "nav";
+//  --------------------------------------------------------
+//  defaults & variables
+//  --------------------------------------------------------
+@import "globals/defaults";
+@import "globals/colors";
+@import "globals/typo";
+@import "globals/form";
 
-//  modules
-    @import "modules/m-default";
+//  --------------------------------------------------------
+//  navigations
+//  --------------------------------------------------------
+@import "navigations/navDefault";
 
-//  animation
-    @import "animation";
+//  --------------------------------------------------------
+//  layout related (l-)
+//  --------------------------------------------------------
+@import "layout/l-default";
+
+//  --------------------------------------------------------
+//  modules related (m-)
+//  --------------------------------------------------------
+@import "modules/m-default";
+
+//  --------------------------------------------------------
+//  components related (c-)
+//  --------------------------------------------------------
+@import "components/c-default";

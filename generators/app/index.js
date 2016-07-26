@@ -152,11 +152,20 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         this.directory('public/dev');
         this.directory('public/dev/scripts');
         this.directory('public/dev/src');
+        this.directory('public/dev/src/mixins');
+        this.directory('public/dev/src/globals');
+        this.directory('public/dev/src/navigations');
+        this.directory('public/dev/src/layout');
+        this.directory('public/dev/src/modules');
+        this.directory('public/dev/src/components');
         this.directory('public/uploads');
 
         this.directory('templates');
         this.directory('templates/_layout');
         this.directory('templates/_partials');
+        this.directory('templates/_components');
+        this.directory('templates/_macros');
+        this.directory('templates/_modules');
 
         //  --------------------------------------------------------
         //  copy and create hearty configs for db & domains
@@ -201,20 +210,28 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         this.copy('_main.js', 'public/dev/scripts/main.js');
 
         this.copy('_main.scss', 'public/dev/src/main.scss');
-        this.copy('_global.scss', 'public/dev/src/_global.scss');
-        this.copy('_typography.scss', 'public/dev/src/_typography.scss');
-        this.copy('_layout.scss', 'public/dev/src/_layout.scss');
-        this.copy('_nav.scss', 'public/dev/src/_nav.scss');
-        this.copy('_m-default.scss', 'public/dev/src/modules/_m-default.scss');
-        this.copy('_animation.scss', 'public/dev/src/_animation.scss');
         this.copy('_fallback.scss', 'public/dev/src/fallback.scss');
+        
+        this.copy('_mixins-global.scss', 'public/dev/src/mixins/_mixins-global.scss');
+
+        this.copy('_defaults.scss', 'public/dev/src/globals/_defaults.scss');
+        this.copy('_colors.scss', 'public/dev/src/globals/_colors.scss');
+        this.copy('_typo.scss', 'public/dev/src/globals/_typo.scss');
+        this.copy('_form.scss', 'public/dev/src/globals/_form.scss');
+
+        this.copy('_navDefault.scss', 'public/dev/src/navigations/_navDefault.scss');
+
+        this.copy('_l-default.scss', 'public/dev/src/layout/_l-default.scss');
+        this.copy('_m-default.scss', 'public/dev/src/modules/_m-default.scss');
+        this.copy('_c-default.scss', 'public/dev/src/components/_c-default.scss');
 
         //  --------------------------------------------------------
         //  copy template related files
         //  --------------------------------------------------------
-        this.copy('_template-main.twig', 'templates/_layout/_template-main.twig');
-        this.copy('_template-head.twig', 'templates/_layout/_template-head.twig');
-        this.copy('_template-scripts.twig', 'templates/_layout/_template-scripts.twig');
+        this.copy('_layout-main.twig', 'templates/_layout/_layout-main.twig');
+        this.copy('_layout-head.twig', 'templates/_layout/_layout-head.twig');
+        this.copy('_layout-scripts.twig', 'templates/_layout/_layout-scripts.twig');
+        this.copy('_macros-global.twig', 'templates/_macros/_macros-global.twig');
 
         this.copy('_404.twig', 'templates/404.twig');
         this.copy('_cs.twig', 'templates/cs.twig');

@@ -5,9 +5,10 @@
 # craft related
 config/config.local.php
 craft
-public/uploads/*/*
+public/uploads/**/*
 
 # dev related
+.idea
 node_modules
 bower_components
 public/dev/bower_components/

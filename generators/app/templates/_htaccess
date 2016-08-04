@@ -1,43 +1,3 @@
-# ------------------------------------------------------------
-# Many techniques here are taken from html5 boilerplate
-# https://github.com/h5bp/html5-boilerplate/blob/master/.htaccess
-# ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-# MANAGE UPDATES & SITE OFFLINE
-# Update and uncomment these rules when we need to work on the site
-# while serving an offline message to visitors. Add permitted IPs as needed.
-# ------------------------------------------------------------
-
-# RewriteEngine on
-# RewriteCond %{REMOTE_HOST} !^76\.89\.128\.240
-# RewriteCond %{REQUEST_URI} !^/assets/utility-pages/offline-page.html
-# RewriteCond %{REQUEST_URI} !^/assets/utility-pages/offline-page-cp.html
-# RewriteCond %{REQUEST_URI} !^/assets/utility-pages/offline-logo.png
-# RewriteRule ^(.*)$ http://www.website.com/bsd-offline-page.html [R=302,L]
-
-
-# ----------------------------------------------------------------------
-# Password protect a specific environment to avoid search engines indexing
-# your site and still only use one .htaccess file across multiple environments
-# https://gist.github.com/1974022
-#
-# To generate a new htpassword run this line on the command line:
-# htpasswd -nb username password
-# ----------------------------------------------------------------------
-
-# SetEnvIf Host local.craft staging
-# AuthType Basic
-# AuthName "Under Construction"
-# AuthUserFile /protected/server/path/above/web/root/.htpasswd
-# Require valid-user
-# Order allow,deny
-# Allow from all
-# Deny from env=staging
-# Satisfy any
-
-
 # ----------------------------------------------------------------------
 # Proper MIME type for all files
 # ----------------------------------------------------------------------
@@ -313,33 +273,16 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 </IfModule>
 
 
-# ------------------------------------------------------------
-# Relative 301 redirects
-# When necessary use rewrite rules like this so that they work in all environments
-# These rules must come before removal of index.php from the URL
-#
-# Make sure the following rules come before this one:
-# RewriteEngine on
-# RewriteBase /
-#
-# Test new rules as 302 redirects
-# ------------------------------------------------------------
+# ----------------------------------------------------------------------
+# Default CraftCMS Rewrite
+# ----------------------------------------------------------------------
 
-# RewriteRule ^old-url/?$ /new-url [R=301,L]
-
-
-# ------------------------------------------------------------
-# Remove index.php from the URL
-# using "File and Directory Check" Method and a bit more
-# http://bit.ly/avy6iZ , http://bit.ly/lDLTQv
-# ------------------------------------------------------------
-
-# Default htaccess rule from Craft with one line removed
-# as we already turned 'RewriteEngine On' above.
 <IfModule mod_rewrite.c>
-  # Send would-be 404 requests to Craft
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
-  RewriteRule (.+) index.php?p=$1 [QSA,L]
+	RewriteEngine On
+
+	# Send would-be 404 requests to Craft
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
+	RewriteRule (.+) index.php?p=$1 [QSA,L]
 </IfModule>

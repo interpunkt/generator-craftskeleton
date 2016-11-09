@@ -1,0 +1,22 @@
+{#
+########################################################
+    builder: content
+    remove ".level(1)" when use matrix fields.
+    this example used the neo plugin.
+########################################################
+#}
+
+{% if entry.contentBuilder.level(1)|length %}
+    {% for content in entry.contentBuilder.level(1) %}
+        {% set type = content.type %}
+
+        {% switch type %}
+
+        {# Example Module #}
+        {% case 'example' %}
+        {% include '' %}
+
+        {% endswitch %}
+
+    {% endfor %}
+{% endif %}

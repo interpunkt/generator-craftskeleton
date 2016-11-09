@@ -1,0 +1,19 @@
+//  --------------------------------------------------------
+//  global list
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+ul,
+ol {
+    margin-top    : $SPACE;
+    margin-bottom : $SPACE;
+    padding-left  : $SPACE-SMALL;
+    line-height   : $BASE-LINE-HEIGHT;
+
+    ul,
+    ol {
+        margin-top    : $SPACE-SMALL;
+        margin-bottom : $SPACE;
+    }
+}

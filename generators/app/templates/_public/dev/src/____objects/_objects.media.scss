@@ -1,0 +1,23 @@
+//  --------------------------------------------------------
+//  media element with image
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+.o-media {
+    display   : flex;
+    flex-flow : row wrap;
+
+    &__img {
+        flex          : 1 1 auto;
+        padding-right : $SPACE;
+
+        > img {
+            display : block;
+        }
+    }
+
+    &__content {
+        flex : 1 1 auto;
+    }
+}

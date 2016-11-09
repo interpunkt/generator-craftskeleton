@@ -6,6 +6,7 @@
 config/config.local.php
 craft
 public/uploads/**/*
+public/dev/styles/
 
 # dev related
 .idea

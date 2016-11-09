@@ -1,0 +1,23 @@
+{#
+########################################################
+    template: main
+########################################################
+#}
+
+<!DOCTYPE html>
+<html lang="de">
+
+{# include: head #}
+{% include '_partials/head.tiwg' %}
+<body>
+
+{# include: head #}
+{% include '_partials/_fallback.twig' %}
+
+{#  block: content #}
+{% block content %}{% endblock %}
+
+{# include: javascript #}
+{% include '_partials/_scripts.twig' %}
+</body>
+</html>

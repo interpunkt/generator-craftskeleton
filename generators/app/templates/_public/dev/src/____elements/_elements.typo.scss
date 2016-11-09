@@ -1,0 +1,26 @@
+//  --------------------------------------------------------
+//  global typo
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  body reset
+//  --------------------------------------------------------
+
+body {
+    color       : $COLOR-BRAND;
+    font-family : $FONT-PRIMARY;
+    font-weight : $FONT-WEIGHT-NORMAL;
+    font-size   : $BASE-FONT-SIZE;
+    line-height : $BASE-LINE-HEIGHT;
+}
+
+//  --------------------------------------------------------
+//  bold and strong
+//  --------------------------------------------------------
+
+b,
+strong {
+    font-weight : $FONT-WEIGHT-BOLD;
+}

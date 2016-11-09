@@ -1,0 +1,13 @@
+//  --------------------------------------------------------
+//  clearfix global
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+@mixin clearfix {
+    &::after {
+        content : '';
+        display : block;
+        clear   : both;
+    }
+}

@@ -1,0 +1,17 @@
+//  --------------------------------------------------------
+//  global selection
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+::selection {
+    background-color : $COLOR-BRAND;
+    color            : $COLOR-ACCENT;
+    text-shadow      : none;
+}
+
+::-moz-selection {
+    background-color : $COLOR-BRAND;
+    color            : $COLOR-ACCENT;
+    text-shadow      : none;
+}

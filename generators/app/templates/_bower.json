@@ -6,8 +6,9 @@
         "mocha": "^2.4.5"
     },
     "dependencies": {
-        "inuit-normalize.css": "inuit-normalize#^3.0.3",
         "webfontloader": "^1.6.24",
-        "lazysizes": "^1.5.0"
+        "lazysizes": "^1.5.0",
+        "include-media": "^1.4.8",
+        "family.scss": "^1.0.8"
     }
 }

@@ -1,0 +1,28 @@
+//  --------------------------------------------------------
+//  global link
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  default
+//  --------------------------------------------------------
+
+a,
+a:active,
+a:focus,
+a:hover {
+    @extend %transition;
+    text-decoration : none;
+    outline         : none;
+}
+
+a {
+    color : $COLOR-BRAND;
+}
+
+a:active,
+a:focus,
+a:hover {
+    color : lighten($COLOR-BRAND, 5);
+}

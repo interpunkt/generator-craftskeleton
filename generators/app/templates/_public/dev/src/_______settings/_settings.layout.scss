@@ -1,0 +1,66 @@
+//  --------------------------------------------------------
+//  global layout variables
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  breakpoints via include-media (lowercase!)
+//  --------------------------------------------------------
+
+$breakpoints : (
+    'xs': 400px,
+    's': 768px,
+    'm': 960px,
+    'l': 1024px,
+    'xl': 1280px,
+);
+
+//  --------------------------------------------------------
+//  spaces
+//  --------------------------------------------------------
+
+$SPACE : 20px;
+$SPACE-SMALL : $SPACE / 2;
+$SPACE-MEDIUM : $SPACE * 1.5;
+$SPACE-BIG : $SPACE * 2;
+
+%gutter-small {
+    padding-right : $SPACE-SMALL;
+    padding-left  : $SPACE-SMALL;
+}
+
+%gutter {
+    padding-right : $SPACE;
+    padding-left  : $SPACE;
+}
+
+%gutter-medium {
+    padding-right : $SPACE-MEDIUM;
+    padding-left  : $SPACE-MEDIUM;
+}
+
+%gutter-big {
+    padding-right : $SPACE-BIG;
+    padding-left  : $SPACE-BIG;
+}
+
+//  --------------------------------------------------------
+//  wrapper
+//  --------------------------------------------------------
+
+$WRAPPER : 1280px;
+
+%wrapper {
+    max-width    : $WRAPPER;
+    margin-right : auto;
+    margin-left  : auto;
+}
+
+//  --------------------------------------------------------
+//  transitions
+//  --------------------------------------------------------
+
+%transition {
+    transition : all 250ms ease-in-out;
+}

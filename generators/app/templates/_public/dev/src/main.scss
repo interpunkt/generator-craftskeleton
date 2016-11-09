@@ -1,0 +1,57 @@
+//  --------------------------------------------------------
+//  global app scss
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+@charset "UTF-8";
+
+//  --------------------------------------------------------
+//  01: settings
+//  --------------------------------------------------------
+@import "_______settings/settings.colors";
+@import "_______settings/settings.layout";
+@import "_______settings/settings.typo";
+
+//  --------------------------------------------------------
+//  02: tools
+//  --------------------------------------------------------
+@import "______tools/tools.mixin.clearfix";
+@import "______tools/tools.mixin.center";
+
+//  --------------------------------------------------------
+//  03: generic
+//  --------------------------------------------------------
+@import "_____generic/generic.normalize";
+@import "_____generic/generic.box-sizing";
+
+//  --------------------------------------------------------
+//  04: elements
+//  --------------------------------------------------------
+@import "____elements/elements.typo";
+@import "____elements/elements.headings";
+@import "____elements/elements.paragraphs";
+@import "____elements/elements.links";
+@import "____elements/elements.lists";
+@import "____elements/elements.buttons";
+@import "____elements/elements.selections";
+@import "____elements/elements.images";
+
+//  --------------------------------------------------------
+//  05: objects
+//  --------------------------------------------------------
+@import "____objects/objects.ratio";
+@import "____objects/objects.media";
+
+//  --------------------------------------------------------
+//  06: components
+//  --------------------------------------------------------
+
+//  --------------------------------------------------------
+//  07: trumps
+//  --------------------------------------------------------
+@import "_trumps/trumps.plugin.lazysizes";
+
+//  --------------------------------------------------------
+//  08: vendor
+//  --------------------------------------------------------

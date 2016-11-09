@@ -1,0 +1,67 @@
+//  --------------------------------------------------------
+//  ratio element
+//  copyright 2015 - 2016 by inter-punkt.ag
+//  autor: selim imoberdorf
+//  --------------------------------------------------------
+
+$ip-ratios : (
+    2:1,
+    3:2,
+    4:3,
+    5:4,
+    16:9
+) !default;
+
+//  --------------------------------------------------------
+//  default cropping is 1:1
+//  --------------------------------------------------------
+
+.o-ratio {
+    position : relative;
+    display  : block;
+    overflow : hidden;
+
+    &:before {
+        content        : "";
+        display        : block;
+        width          : 100%;
+        padding-bottom : 100%;
+    }
+
+    &__content,
+    > iframe,
+    > embed,
+    > object {
+        position : absolute;
+        top      : 0;
+        bottom   : 0;
+        left     : 0;
+        height   : 100%;
+        width    : 100%;
+    }
+}
+
+//  --------------------------------------------------------
+//  generating a series of ratio classes, like:
+//  <div class="o-ratio o-ratio--16:9"></div>
+//  --------------------------------------------------------
+
+@each $ratio in $ip-ratios {
+
+    @each $antecedent, $consequent in $ratio {
+
+        @if (type-of($antecedent) != number) {
+            @error "`#{$antecedent}` needs to be a number."
+        }
+
+        @if (type-of($consequent) != number) {
+            @error "`#{$consequent}` needs to be a number."
+        }
+
+        .o-ratio--#{$antecedent}\:#{$consequent}:before {
+            padding-bottom : ($consequent/$antecedent) * 100%;
+        }
+
+    }
+
+}

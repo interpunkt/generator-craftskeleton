@@ -1,10 +1,10 @@
 {
     "name": "generator-craftskeleton",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Starterkit for Craft CMS (Mutli Envs, Gulp and Bower) made by Selim Imoberdorf.",
     "homepage": "",
     "author": {
-        "name": "Selim Imoberdorf",
+        "name": "Selim «Slim» Imoberdorf",
         "email": "si@inter-punkt.ch",
         "url": "http://inter-punkt.ch"
     },

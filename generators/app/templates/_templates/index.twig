@@ -1,20 +1,19 @@
 {#
 ########################################################
-    block: index
+    site: index
 ########################################################
 #}
 
-{# Layout Setting #}
+{# layout settings #}
 {% extends "_layouts/_master.twig" %}
 
-
-{# Block: home #}
+{# block: content #}
 {% block content %}
-    {% cache %}
+    {% cache if not craft.config.devMode %}
 
     <section class="wrapper">
-        <h1>Deine Craft CMS<br>Installation funktioniert.</h1>
-        <p>by <a href="http://inter-punkt.ch" target="_blank">inter-punkt ag.</a> – Selim Imoberdorf</p>
+        <h1>Your Craft CMS<br>is working well!</h1>
+        <p>Generator by <a href="http://inter-punkt.ch" target="_blank">inter-punkt ag.</a> – Selim Imoberdorf</p>
     </section>
 
     {% endcache %}

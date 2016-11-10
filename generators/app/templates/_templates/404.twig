@@ -1,14 +1,13 @@
 {#
 ########################################################
-    block: 404
+    site: 404
 ########################################################
 #}
 
-{# Layout Setting #}
+{# layout settings #}
 {% extends "_layouts/_master.twig" %}
 
-
-{# Block: Content #}
+{# block: content #}
 {% block content %}
     {% cache if not craft.config.devMode %}
 

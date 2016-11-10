@@ -13,29 +13,31 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
     askFor: function () {
         var done = this.async();
 
-        this.log(yosay('Welcome to the awesome' + chalk.red(' craftskeleton') + ' generator!'));
-
         var welcome =
-                "\n   ___ _ __ __ _ / _| |_ ___| | _____| | ___| |_ ___  _ __     " +
-                "\n  / __| '__/ _` | |_| __/ __| |/ / _ \ |/ _ \ __/ _ \| '_ \    " +
-                "\n | (__| | | (_| |  _| |_\__ \   <  __/ |  __/ || (_) | | | |   " +
-                "\n  \___|_|  \__,_|_|  \__|___/_|\_\___|_|\___|\__\___/|_| |_|   " +
-                "\n                                                               " +
-                "\n -----------------------------------------------------------   " +
-                "\n craftkseleton is made with love in aarau, switzerland.        " +
-                "\n -----------------------------------------------------------   " +
-                "\n                                                               " +
-                "\n Author: Selim Imoberdorf                                      " +
-                "\n Website: Website: http://inter-punkt.ch                       " +
-                "\n NPM: https://www.npmjs.com/package/generator-craftskeleton    " +
-                "\n                                                               ";
+                "\n  ______________________________________________________________   " +
+                "\n                                                                   " +
+                "\n                                                        V: " + chalk.blue(this.pkg.version) +
+                chalk.styles.blue.open +
+                "\n  ____ ____ ____ ____ ___ ____ _  _ ____ _    ____ ___ ____ _  _   " +
+                "\n  |    |__/ |__| |___  |  [__  |_/  |___ |    |___  |  |  | |\\ |  " +
+                "\n  |___ |  \\ |  | |     |  ___] | \\_ |___ |___ |___  |  |__| | \\|" +
+                chalk.styles.blue.close +
+                "\n                                                                   " +
+                "\n  is made with love in aarau, switzerland.                         " +
+                "\n                                                                   " +
+                "\n  author: selim «slim» imoberdorf (@slimiles)                      " +
+                "\n  website: http://inter-punkt.ch                                   " +
+                "\n  url: https://github.com/interpunkt/generator-craftskeleton       " +
+                "\n                                                                   " +
+                "\n  ______________________________________________________________   " +
+                "\n                                                                   ";
 
         console.log(welcome);
 
         var prompts = [{
             name:    'projectName',
             message: 'Tell me the name of this project',
-            default: 'Craft Skeleton'
+            default: 'craftskeleton'
         }, {
             type:    'confirm',
             name:    'installCraft',
@@ -171,6 +173,7 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         this.copy('_bowerrc', '.bowerrc');
         this.copy('_package.json', 'package.json');
         this.copy('_gitignore', '.gitignore');
+        this.copy('_editorconfig', '.editorconfig');
         this.fs.copyTpl(
             this.templatePath('_gulpfile.js'),
             this.destinationPath('gulpfile.js'),

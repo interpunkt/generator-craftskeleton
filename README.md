@@ -4,16 +4,7 @@
 ***
 
 ## 1. Installation
-
-### 1.1. The Craft CLI
-The generator needs this [Craft CLI](https://github.com/rsanchez/craft-cli) for installing it trough bash.
-```bash
-brew tap rsanchez/homebrew-craft-cli
-brew install craft-cli
-```
-
-### 1.2. The Generator
-Second, install [Yeoman](http://yeoman.io) and generator-craftskeleton using [npm](https://www.npmjs.com/) (I assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-craftskeleton using [npm](https://www.npmjs.com/) (I assume you have pre-installed [node.js](https://nodejs.org/)).
 ```bash
 npm install -g yo
 npm install -g generator-craftskeleton
@@ -28,12 +19,12 @@ yo craftskeleton
 ```
 
 ### The Craft CMS Plugins
-This generator needs some plugins for the whole setup. Download this plugins with `wget` in `/plugins/`. Of course you have to remove the `-master` in the directoryname if it exists.
+This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
 
+- [Kint](https://github.com/mildlygeeky/craft_kint)
 - [Imager](https://github.com/aelvan/Imager-Craft)
-- [Minify](https://github.com/nystudio107/minify)
-- [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
 - [SEOmatic](https://github.com/nystudio107/seomatic)
+- [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
 
 ### Run your Development Environment
 To start coding you can run `gulp` in your root directory. If you want to get your production-files just run `gulp build`.

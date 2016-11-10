@@ -61,7 +61,8 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
             default: 'root'
         }, {
             name:    'dbLocalName',
-            message: '[LOCAL] Name of your local database'
+            message: '[LOCAL] Name of your local database',
+            default: 'craftskeleton'
         }, {
             name:    'dbStageUrl',
             message: '[STAGE] Domain of your stage installation'
@@ -136,8 +137,17 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         //  --------------------------------------------------------
         if (installCraft) {
             var done = this.async();
-            this.spawnCommand('craft', ['install', './']).on('close', done);
+            var _self = this;
+
+            this.spawnCommand('wget', ['http://buildwithcraft.com/latest.tar.gz\?accept_license\=yes']).on('close', function () {
+                _self.spawnCommand('tar', ['-zxvf', 'latest.tar.gz\?accept_license=yes', 'craft/']).on('close', function () {
+                    _self.spawnCommand('rm', ['-rf', 'latest.tar.gz\?accept_license=yes']).on('close', done);
+                });
+            });
         }
+
+        // old installation with craft cli (doesn't work on sierra sometimes)
+        //this.spawnCommand('craft', ['install', './']).on('close', done);
 
         //  --------------------------------------------------------
         //  copy folder structure

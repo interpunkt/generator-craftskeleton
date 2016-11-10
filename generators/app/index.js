@@ -46,7 +46,7 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
         }, {
             name:    'dbLocalUrl',
             message: '[LOCAL] Domain of your local installation',
-            default: 'craft-skeleton.dev'
+            default: 'craftskeleton.dev'
         }, {
             name:    'dbLocalServer',
             message: '[LOCAL] Name of your local database server',

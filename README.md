@@ -25,6 +25,7 @@ This generator use some plugins. The plugins are already downloaded in `/plugins
 - [Imager](https://github.com/aelvan/Imager-Craft)
 - [SEOmatic](https://github.com/nystudio107/seomatic)
 - [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
+- [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
 
 ### Run your Development Environment
 To start coding you can run `gulp` in your root directory. If you want to get your production-files just run `gulp build`.

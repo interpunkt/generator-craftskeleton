@@ -195,8 +195,8 @@ var CraftSkeletonGenerator = yeoman.generators.Base.extend({
             projectName
         );
         this.fs.copyTpl(
-            this.templatePath('_readme.md'),
-            this.destinationPath('readme.md'),
+            this.templatePath('_README.md'),
+            this.destinationPath('README.md'),
             projectName
         );
     },

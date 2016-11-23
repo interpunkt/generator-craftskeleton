@@ -25,9 +25,9 @@
         <![endif]-->
     {% else %}
         {% cache if not craft.config.devMode %}
-        {{ craft.cacheBuster.bust('/assets/styles/main.min.css') }}
+        <link rel="stylesheet" href="{{ craft.cacheBuster.bust('/assets/styles/main.min.css') }}">
         <!--[if lt IE 10]>
-        {{ craft.cacheBuster.bust('/assets/styles/fallback.min.css') }}
+        <link rel="stylesheet" href="{{ craft.cacheBuster.bust('/assets/styles/fallback.min.css') }}">
         <![endif]-->
         {% endcache %}
     {% endif %}

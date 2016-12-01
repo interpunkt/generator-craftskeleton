@@ -207,6 +207,34 @@ FileETag None
 
 
 # ----------------------------------------------------------------------
+# Start rewrite engine
+# ----------------------------------------------------------------------
+
+# Turning on the rewrite engine is necessary for the following rules and features.
+# FollowSymLinks must be enabled for this to work.
+#
+# Some cloud hosting services require RewriteBase to be set: goo.gl/HOcPN
+# If using the h5bp in a subdirectory, use `RewriteBase /foo` instead where 'foo' is your directory.
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  RewriteEngine On
+  RewriteBase /
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# Remove "www." from beginning of URLs
+# http://stackoverflow.com/questions/234723/generic-htaccess-redirect-www-to-non-www
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+</IfModule>
+
+
+# ----------------------------------------------------------------------
 # Prevent 404 errors for non-existing redirected folders
 # ----------------------------------------------------------------------
 
@@ -278,11 +306,11 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 # ----------------------------------------------------------------------
 
 <IfModule mod_rewrite.c>
-	RewriteEngine On
+  RewriteEngine On
 
-	# Send would-be 404 requests to Craft
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
-	RewriteRule (.+) index.php?p=$1 [QSA,L]
+  # Send would-be 404 requests to Craft
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
+  RewriteRule (.+) index.php?p=$1 [QSA,L]
 </IfModule>

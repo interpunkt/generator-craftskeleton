@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% cache if not craft.config.devMode %}
+    {% cache %}
     <!-- favicons -->
     {# Mit dem Favicon Generator erstellen: http://realfavicongenerator.net/ #}
 
@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="/dev/styles/fallback.css">
         <![endif]-->
     {% else %}
-        {% cache if not craft.config.devMode %}
+        {% cache %}
         <link rel="stylesheet" href="{{ craft.cacheBuster.bust('/assets/styles/main.min.css') }}">
         <!--[if lt IE 10]>
         <link rel="stylesheet" href="{{ craft.cacheBuster.bust('/assets/styles/fallback.min.css') }}">

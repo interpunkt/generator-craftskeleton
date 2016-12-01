@@ -17,8 +17,8 @@
 
 {% else %}
 
-    {% cache if not craft.config.devMode %}
-    <script src="/assets/scripts/app.min.js"></script>
+    {% cache %}
+    <script src="{{ craft.cacheBuster.bust('/assets/scripts/app.min.js') }}"></script>
     {% endcache %}
 
 {% endif %}

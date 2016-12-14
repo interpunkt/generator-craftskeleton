@@ -21,11 +21,26 @@ yo craftskeleton
 ### The Craft CMS Plugins
 This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
 
-- [Kint](https://github.com/mildlygeeky/craft_kint)
+- [a&m nav](https://github.com/am-impact/amnav)
+- [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
+- [Control Panel Nav](https://github.com/engram-design/CPNav)
+- [CP Field Links](https://github.com/mmikkel/CpFieldLinks-Craft)
+- [Focal Point Field for Craft](https://github.com/aelvan/FocalPointField-Craft)
 - [Imager](https://github.com/aelvan/Imager-Craft)
+- [Kint](https://github.com/mildlygeeky/craft_kint)
+- [Language Link](https://github.com/lindseydiloreto/craft-languagelink)
+- [LinkIt](https://github.com/fruitstudios/LinkIt)
+- [Minify](https://github.com/nystudio107/minify)
+- [Neo](https://github.com/benjamminf/craft-neo)
+- [Quick Fields](https://github.com/benjamminf/craft-quick-field)
+- [Reasons](https://github.com/mmikkel/Reasons-Craft)
+- [Relabel](https://github.com/benjamminf/craft-relabel)
+- [Retour](https://github.com/nystudio107/retour)
 - [SEOmatic](https://github.com/nystudio107/seomatic)
 - [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
-- [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
+- [Super Table](https://github.com/engram-design/SuperTable)
+- [The Architect](https://github.com/Pennebaker/craftcms-thearchitect)
+
 
 ### Run your Development Environment
 To start coding you can run `gulp` in your root directory. If you want to get your production-files just run `gulp build`.

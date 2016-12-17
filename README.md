@@ -21,7 +21,6 @@ yo craftskeleton
 ### The Craft CMS Plugins
 This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
 
-- [a&m nav](https://github.com/am-impact/amnav)
 - [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
 - [Control Panel Nav](https://github.com/engram-design/CPNav)
 - [CP Field Links](https://github.com/mmikkel/CpFieldLinks-Craft)
@@ -30,7 +29,6 @@ This generator use some plugins. The plugins are already downloaded in `/plugins
 - [Kint](https://github.com/mildlygeeky/craft_kint)
 - [Language Link](https://github.com/lindseydiloreto/craft-languagelink)
 - [LinkIt](https://github.com/fruitstudios/LinkIt)
-- [Minify](https://github.com/nystudio107/minify)
 - [Neo](https://github.com/benjamminf/craft-neo)
 - [Quick Fields](https://github.com/benjamminf/craft-quick-field)
 - [Reasons](https://github.com/mmikkel/Reasons-Craft)

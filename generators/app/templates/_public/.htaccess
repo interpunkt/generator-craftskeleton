@@ -235,6 +235,19 @@ FileETag None
 
 
 # ----------------------------------------------------------------------
+# Force "/" at the end of URLs
+# No duplicated content with this way
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_METHOD} !=POST
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+[^/])$ /$1/ [R=301,L]
+</IfModule>
+
+
+# ----------------------------------------------------------------------
 # Prevent 404 errors for non-existing redirected folders
 # ----------------------------------------------------------------------
 

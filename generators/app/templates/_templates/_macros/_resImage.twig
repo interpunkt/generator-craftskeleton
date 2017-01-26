@@ -107,14 +107,16 @@
             </figure>
 
         {% else %}
-            <figure
-                class="{{ attr.ratio | length ? 'o-ratio  o-ratio--' ~ attr.ratio : '' }} {{ attr.class }}  lazyload"
-                style="background-image: url('{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}');
-                    background-position: {{ position }};
-                {{ not attr.ratio | length ? 'padding-bottom:' ~ images[0].height / images[0].width * 100 ~ '%;' : '' }}
-                    background-color: {{ dominantColor }};"
-                data-bgset="{{ craft.imager.srcset(images) }}"
-                data-sizes="auto">
+            <figure class="{{ attr.ratio | length ? 'o-ratio  o-ratio--' ~ attr.ratio : '' }} {{ attr.class }}"
+                    style="background-color: {{ dominantColor }};">
+                <div class="lazyload"
+                     style="background-image: url('{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}');
+                             background-position: {{ position }};
+                     {{ not attr.ratio | length ? 'padding-bottom:' ~ images[0].height / images[0].width * 100 ~ '%;' : '' }}
+                             background-color: {{ dominantColor }};"
+                     data-bgset="{{ craft.imager.srcset(images) }}"
+                     data-sizes="auto">
+                </div>
             </figure>
 
         {% endif %}

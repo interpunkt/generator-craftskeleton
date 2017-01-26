@@ -45,7 +45,7 @@ class RelabelService extends BaseApplicationComponent
 			}
 			else
 			{
-				throw new Exception(Craft::t('No label exists with the ID “{id}”.', array('id' => $label->id)));
+				throw new Exception(Craft::t('No label exists with the ID ï¿½{id}ï¿½.', array('id' => $label->id)));
 			}
 		}
 		else
@@ -70,12 +70,12 @@ class RelabelService extends BaseApplicationComponent
 
 		if(!$field)
 		{
-			throw new Exception(Craft::t('No field exists with the ID “{id}”.', array('id' => $label->fieldId)));
+			throw new Exception(Craft::t('No field exists with the ID ï¿½{id}ï¿½.', array('id' => $label->fieldId)));
 		}
 
 		if(!$layout)
 		{
-			throw new Exception(Craft::t('No field layout exists with the ID “{id}”.', array('id' => $label->fieldLayoutId)));
+			throw new Exception(Craft::t('No field layout exists with the ID ï¿½{id}ï¿½.', array('id' => $label->fieldLayoutId)));
 		}
 
 		$record->fieldId = $label->fieldId;

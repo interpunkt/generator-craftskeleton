@@ -21,23 +21,29 @@ yo craftskeleton
 ### The Craft CMS Plugins
 This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
 
+- [Button Box](https://github.com/supercool/Button-Box)
 - [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
 - [Control Panel Nav](https://github.com/engram-design/CPNav)
 - [CP Field Links](https://github.com/mmikkel/CpFieldLinks-Craft)
 - [Focal Point Field for Craft](https://github.com/aelvan/FocalPointField-Craft)
+- [Hacksaw](https://github.com/ehousestudio/craft_hacksaw)
 - [Imager](https://github.com/aelvan/Imager-Craft)
+- [ImageResizer](https://github.com/engram-design/ImageResizer)
 - [Kint](https://github.com/mildlygeeky/craft_kint)
 - [Language Link](https://github.com/lindseydiloreto/craft-languagelink)
 - [LinkIt](https://github.com/fruitstudios/LinkIt)
 - [Neo](https://github.com/benjamminf/craft-neo)
+- [Preparse Field](https://github.com/aelvan/Preparse-Field-Craft)
 - [Quick Fields](https://github.com/benjamminf/craft-quick-field)
 - [Reasons](https://github.com/mmikkel/Reasons-Craft)
 - [Relabel](https://github.com/benjamminf/craft-relabel)
 - [Retour](https://github.com/nystudio107/retour)
 - [SEOmatic](https://github.com/nystudio107/seomatic)
 - [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
+- [Supercool Tools](https://github.com/supercool/Tools)
 - [Super Table](https://github.com/engram-design/SuperTable)
 - [The Architect](https://github.com/Pennebaker/craftcms-thearchitect)
+- [Video Embed Utility](https://github.com/Staplegun-US/craft-video-embed-utility)
 
 
 ### Run your Development Environment

@@ -26,12 +26,12 @@ class SeomaticPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '1.1.39';
+        return '1.1.40';
     }
 
     public function getSchemaVersion()
     {
-        return '1.1.22';
+        return '1.1.23';
     }
 
     public function getDeveloper()

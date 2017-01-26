@@ -510,9 +510,14 @@ class SeomaticService extends BaseApplicationComponent
         if (isset($element) && $element)
         {
             $elemType = $element->getElementType();
+/* -- Take the leap, and just work with all custom elementtypes instead of checking a whitelist
             if ($elemType == ElementType::Entry ||
                 $elemType == "Commerce_Product" ||
+                $elemType == "SuperCal_Event" ||
+                $elemType == "Marketplace_Product" ||
                 $elemType == ElementType::Category)
+*/
+            if (true)
             {
                 $attributes = $element->content->attributes;
                 foreach ($attributes as $key => $value)
@@ -527,19 +532,32 @@ class SeomaticService extends BaseApplicationComponent
                                 $this->lastElement = $element;
         /* -- If this is a Commerce Product, fill in some additional info */
 
-                                if ($elemType == "Commerce_Product" && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
+                                if (($elemType == "Commerce_Product" || is_a($element, "Commerce\\Base\\Purchasable")) && craft()->config->get("renderCommerceProductJSONLD", "seomatic"))
                                 {
-                                    $commerceSettings = craft()->commerce_settings->getSettings();
-                                    $variants = $element->getVariants();
-                                    $commerceVariants = array();
+                                    if ($elemType == "Commerce_Product")
+                                    {
+                                        $commerceSettings = craft()->commerce_settings->getSettings();
+                                        $variants = $element->getVariants();
+                                        $commerceVariants = array();
 
-                                    foreach ($variants as $variant)
+                                        foreach ($variants as $variant)
+                                        {
+                                            $commerceVariant = array(
+                                                'seoProductDescription' => $variant->getDescription(),
+                                                'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
+                                                'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
+                                                'seoProductSku' => $variant->getSku(),
+                                            );
+                                            $commerceVariants[] = $commerceVariant;
+                                        }
+                                    }
+                                    else
                                     {
                                         $commerceVariant = array(
-                                            'seoProductDescription' => $variant->getDescription(),
-                                            'seoProductPrice' => number_format($variant->getPrice(), 2, '.', ''),
-                                            'seoProductCurrency' => $commerceSettings['defaultCurrency'],
-                                            'seoProductSku' => $variant->getSku(),
+                                            'seoProductDescription' => $element->getDescription(),
+                                            'seoProductPrice' => number_format($element->getPrice(), 2, '.', ''),
+                                            'seoProductCurrency' => craft()->commerce_paymentCurrencies->getPrimaryPaymentCurrency(),
+                                            'seoProductSku' => $element->getSku(),
                                         );
                                         $commerceVariants[] = $commerceVariant;
                                     }
@@ -1473,6 +1491,7 @@ class SeomaticService extends BaseApplicationComponent
         $identity['personOwnerGender'] = $settings['personOwnerGender'];
         $identity['personOwnerBirthPlace'] = $settings['personOwnerBirthPlace'];
 
+        $identity['localBusinessPriceRange'] = $settings['localBusinessPriceRange'];
         $identity['localBusinessOwnerOpeningHours'] = $settings['localBusinessOwnerOpeningHours'];
 
 /* -- Handle the opening hours specification */
@@ -1671,6 +1690,8 @@ class SeomaticService extends BaseApplicationComponent
             break;
 
             case 'LocalBusiness':
+                if (isset($identity['localBusinessPriceRange']))
+                    $identityJSONLD['priceRange'] = $identity['localBusinessPriceRange'];
                 if (isset($identity['openingHoursSpecification']))
                 {
                     if (isset($identityJSONLD['location']))
@@ -3069,8 +3090,7 @@ public function getFullyQualifiedUrl($url)
                     $value = $this->encodeEmailAddress($value);
                 elseif ($key === 'url' || $key === 'image' || $key === 'logo')
                     $value = $this->getFullyQualifiedUrl($value);
-                else
-                    $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+                $value = htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
                 $theArray[$key] = $value;
             }
             else

@@ -24,13 +24,13 @@ class Imager_ImagePathsModel extends BaseModel
         $this->isRemote = false;
 
         if (is_string($image)) {
-
-            if (strpos($image, craft()->imager->getSetting('imagerUrl')) !== false) { // url to a file that is in the imager library
+            
+            if (strncmp($image, craft()->imager->getSetting('imagerUrl'), strlen(craft()->imager->getSetting('imagerUrl'))) === 0) { // url to a file that is in the imager library
                 $this->getPathsForLocalImagerFile($image);
             } else {
-                if (strrpos($image, 'http') === 0 || strrpos($image, 'https') === 0 || strrpos($image, '//') === 0) { // external file
+                if (strncmp($image, 'http', 4) === 0 || strncmp($image, 'https', 5) === 0 || strncmp($image, '//', 2) === 0) { // external file
                     $this->isRemote = true;
-                    if (strrpos($image, '//') === 0) {
+                    if (strncmp($image, '//', 2) === 0) {
                         $image = 'https:' . $image;
                     }
                     $this->_getPathsForUrl($image);
@@ -67,6 +67,7 @@ class Imager_ImagePathsModel extends BaseModel
         return array(
           'isRemote' => array(AttributeType::Bool),
           'sourcePath' => array(AttributeType::String),
+          'sourceUrl' => array(AttributeType::String),
           'targetPath' => array(AttributeType::String),
           'targetUrl' => array(AttributeType::String),
           'sourceFilename' => array(AttributeType::String),
@@ -83,7 +84,7 @@ class Imager_ImagePathsModel extends BaseModel
     {
         $assetSourcePath = craft()->config->parseEnvironmentString($image->getSource()->settings['url']);
 
-        if (strrpos($assetSourcePath, 'http') !== false) {
+        if (strncmp($assetSourcePath, 'http', 4) === 0) {
             $parsedUrl = parse_url($assetSourcePath);
             $assetSourcePath = $parsedUrl['path'];
         }
@@ -97,6 +98,7 @@ class Imager_ImagePathsModel extends BaseModel
         }
 
         $this->sourcePath = ImagerService::fixSlashes(craft()->config->parseEnvironmentString($image->getSource()->settings['path']) . $image->getFolder()->path);
+        $this->sourceUrl = $image->getUrl();
         $this->targetPath = ImagerService::fixSlashes(craft()->imager->getSetting('imagerSystemPath') . $targetFolder) . $image->id . '/';
         $this->targetUrl = craft()->imager->getSetting('imagerUrl') . ImagerService::fixSlashes($targetFolder, true) . $image->id . '/';
         $this->sourceFilename = $this->targetFilename = $image->filename;
@@ -113,6 +115,7 @@ class Imager_ImagePathsModel extends BaseModel
         $pathParts = pathinfo($imageString);
 
         $this->sourcePath = craft()->imager->getSetting('imagerSystemPath') . $pathParts['dirname'] . '/';
+        $this->sourceUrl = $image;
         $this->targetPath = ImagerService::fixSlashes(craft()->imager->getSetting('imagerSystemPath') . $pathParts['dirname'] . '/');
         $this->targetUrl = craft()->imager->getSetting('imagerUrl') . ImagerService::fixSlashes($pathParts['dirname'] . '/', true);
         $this->sourceFilename = $this->targetFilename = $pathParts['basename'];
@@ -135,6 +138,7 @@ class Imager_ImagePathsModel extends BaseModel
         }
 
         $this->sourcePath = $_SERVER['DOCUMENT_ROOT'] . $pathParts['dirname'] . '/';
+        $this->sourceUrl = $image;
         $this->targetPath = ImagerService::fixSlashes(craft()->imager->getSetting('imagerSystemPath') . $targetFolder . '/');
         $this->targetUrl = craft()->imager->getSetting('imagerUrl') . ImagerService::fixSlashes($targetFolder . '/', true);
         $this->sourceFilename = $this->targetFilename = $pathParts['basename'];
@@ -172,6 +176,7 @@ class Imager_ImagePathsModel extends BaseModel
         }
 
         $this->sourcePath = craft()->path->getRuntimePath() . 'imager/' . $parsedDirname . '/';
+        $this->sourceUrl = $image;
         $this->targetPath = craft()->imager->getSetting('imagerSystemPath') . $parsedDirname . '/';
         $this->targetUrl = craft()->imager->getSetting('imagerUrl') . $parsedDirname . '/';
         $this->sourceFilename = $this->targetFilename = str_replace(' ', '-', $pathParts['basename']);
@@ -181,8 +186,14 @@ class Imager_ImagePathsModel extends BaseModel
             IOHelper::createFolder($this->sourcePath, craft()->config->get('defaultFolderPermissions'), true);
 
             if (!IOHelper::getRealPath($this->sourcePath)) {
-                throw new Exception(Craft::t('Temp folder “{sourcePath}” does not exist and could not be created',
-                  array('sourcePath' => $this->sourcePath)));
+                $msg = Craft::t('Temp folder “{sourcePath}” does not exist and could not be created', array('sourcePath' => $this->sourcePath));
+                
+                if (craft()->imager->getSetting('suppressExceptions')===true) {
+                    ImagerPlugin::log($msg, LogLevel::Error);
+                    return null;
+                } else {
+                    throw new Exception($msg);
+                }
             }
         }
 
@@ -193,8 +204,13 @@ class Imager_ImagePathsModel extends BaseModel
             $this->_downloadFile($this->sourcePath . $this->sourceFilename, $image);
 
             if (!IOHelper::fileExists($this->sourcePath . $this->sourceFilename)) {
-                throw new Exception(Craft::t('File could not be downloaded and saved to “{sourcePath}”',
-                  array('sourcePath' => $this->sourcePath)));
+                $msg = Craft::t('File could not be downloaded and saved to “{sourcePath}”', array('sourcePath' => $this->sourcePath));
+                
+                if (craft()->imager->getSetting('suppressExceptions')===true) {
+                    ImagerPlugin::log($msg, LogLevel::Error);
+                } else {
+                    throw new Exception($msg);
+                }
             }
         }
     }
@@ -237,26 +253,51 @@ class Imager_ImagePathsModel extends BaseModel
 
             if ($curlErrorNo !== 0) {
                 unlink($destinationPath);
-                throw new Exception(Craft::t('cURL error “{curlErrorNo}” encountered while attempting to download “{imageUrl}”. The error was: “{curlError}”',
-                  array('imageUrl' => $imageUrl, 'curlErrorNo' => $curlErrorNo, 'curlError' => $curlError)));
+                $msg = Craft::t('cURL error “{curlErrorNo}” encountered while attempting to download “{imageUrl}”. The error was: “{curlError}”', array('imageUrl' => $imageUrl, 'curlErrorNo' => $curlErrorNo, 'curlError' => $curlError));
+                
+                if (craft()->imager->getSetting('suppressExceptions')===true) {
+                    ImagerPlugin::log($msg, LogLevel::Error);
+                    return null;
+                } else {
+                    throw new Exception($msg);
+                }
             }
 
             if ($httpStatus !== 200) {
                 if (!($httpStatus == 404 && strrpos(mime_content_type($destinationPath), 'image') !== false)) { // remote server returned a 404, but the contents was a valid image file
                     unlink($destinationPath);
-                    throw new Exception(Craft::t('HTTP status “{httpStatus}” encountered while attempting to download “{imageUrl}”',
-                      array('imageUrl' => $imageUrl, 'httpStatus' => $httpStatus)));
+                    $msg = Craft::t('HTTP status “{httpStatus}” encountered while attempting to download “{imageUrl}”', array('imageUrl' => $imageUrl, 'httpStatus' => $httpStatus));
+                    
+                    if (craft()->imager->getSetting('suppressExceptions')===true) {
+                        ImagerPlugin::log($msg, LogLevel::Error);
+                        return null;
+                    } else {
+                        throw new Exception($msg);
+                    }
                 }
             }
         } elseif (ini_get('allow_url_fopen')) {
             if (!@file_put_contents($destinationPath, file_get_contents($imageUrl))) {
                 unlink($destinationPath);
                 $httpStatus = $http_response_header[0];
-                throw new Exception(Craft::t('“{httpStatus}” encountered while attempting to download “{imageUrl}”',
-                  array('imageUrl' => $imageUrl, 'httpStatus' => $httpStatus)));
+                $msg = Craft::t('“{httpStatus}” encountered while attempting to download “{imageUrl}”', array('imageUrl' => $imageUrl, 'httpStatus' => $httpStatus));
+                
+                if (craft()->imager->getSetting('suppressExceptions')===true) {
+                    ImagerPlugin::log($msg, LogLevel::Error);
+                    return null;
+                } else {
+                    throw new Exception($msg);
+                }
             }
         } else {
-            throw new Exception(Craft::t('Looks like allow_url_fopen is off and cURL is not enabled. To download external files, one of these methods has to be enabled.'));
+            $msg = Craft::t('Looks like allow_url_fopen is off and cURL is not enabled. To download external files, one of these methods has to be enabled.');
+            
+            if (craft()->imager->getSetting('suppressExceptions')===true) {
+                ImagerPlugin::log($msg, LogLevel::Error);
+                return null;
+            } else {
+                throw new Exception($msg);
+            }
         }
     }
 

@@ -15,5 +15,10 @@ return array(
     ),
 
     'backupDbOnUpdate' => true,
+    /*
+     * Cache data indefinitely: https://craftcms.com/docs/config-settings#cacheDuration
+     * More Info here: https://nystudio107.com/blog/the-craft-cache-tag-in-depth
+     * */
+    'cacheDuration' => '0',
 
 );

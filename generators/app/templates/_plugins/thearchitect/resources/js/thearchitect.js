@@ -113,6 +113,44 @@ $(function() {
     }
   });
 
+  $('#allRoutes').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      $('.routes [id^="route"]:not(:disabled)').prop('checked', true);
+      $('.routes [id^="route"]:not(:disabled)').change();
+    } else {
+      $('.routes [id^="route"]:not(:disabled)').prop('checked', false);
+      $('.routes [id^="route"]:not(:disabled)').change();
+    }
+  });
+  $('.routes [id^="route"]:not(:disabled)').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      if ($('.routes [id^="route"]:checked:not(:disabled)').length == $('.routes [id^="route"]:not(:disabled)').length) {
+        $('#allRoutes').prop('checked', true);
+      }
+    } else {
+      $('#allRoutes').prop('checked', false);
+    }
+  });
+
+  $('#allTags').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      $('.tags [id^="tag"]:not(:disabled)').prop('checked', true);
+      $('.tags [id^="tag"]:not(:disabled)').change();
+    } else {
+      $('.tags [id^="tag"]:not(:disabled)').prop('checked', false);
+      $('.tags [id^="tag"]:not(:disabled)').change();
+    }
+  });
+  $('.tags [id^="tag"]:not(:disabled)').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      if ($('.tags [id^="tag"]:checked:not(:disabled)').length == $('.tags [id^="tag"]:not(:disabled)').length) {
+        $('#allTags').prop('checked', true);
+      }
+    } else {
+      $('#allTags').prop('checked', false);
+    }
+  });
+
   $('#allUsers').on('change', function(e) {
     if ($(this).is(':checked')) {
       $('.users [id^="user"]:not(:disabled)').prop('checked', true);
@@ -148,6 +186,25 @@ $(function() {
       }
     } else {
       $('#allGroups').prop('checked', false);
+    }
+  });
+
+  $('#allProductTypes').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      $('.productTypes [id^="productType"]:not(:disabled)').prop('checked', true);
+      $('.productTypes [id^="productType"]:not(:disabled)').change();
+    } else {
+      $('.productTypes [id^="productType"]:not(:disabled)').prop('checked', false);
+      $('.productTypes [id^="productType"]:not(:disabled)').change();
+    }
+  });
+  $('.productTypes [id^="productType"]:not(:disabled)').on('change', function(e) {
+    if ($(this).is(':checked')) {
+      if ($('.productTypes [id^="productType"]:checked:not(:disabled)').length == $('.productTypes [id^="productType"]:not(:disabled)').length) {
+        $('#allProductTypes').prop('checked', true);
+      }
+    } else {
+      $('#allProductTypes').prop('checked', false);
     }
   });
 

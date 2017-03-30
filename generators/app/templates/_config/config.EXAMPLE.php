@@ -14,6 +14,8 @@ return array(
         'database' => '',
     ),
 
+    'devMode' => true,
+    'allowAutoUpdates' => false,
     'backupDbOnUpdate' => true,
     /*
      * Cache data indefinitely: https://craftcms.com/docs/config-settings#cacheDuration

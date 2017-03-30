@@ -3,6 +3,35 @@ namespace Craft;
 
 class ImageResizerController extends BaseController
 {
+    // Properties
+    // =========================================================================
+
+    protected $allowAnonymous = array('actionClearTasks');
+
+
+    // Public Methods
+    // =========================================================================
+
+    public function actionSettings()
+    {
+        $settings = craft()->imageResizer->getSettings();
+
+        $sourceOptions = array();
+        $folderOptions = array();
+        foreach (craft()->assetSources->getAllSources() as $source) {
+            $sourceOptions[] = array('label' => $source->name, 'value' => $source->id);
+        }
+
+        $assetTree = craft()->assets->getFolderTreeBySourceIds(craft()->assetSources->getAllSourceIds());
+        craft()->imageResizer->getAssetFolders($assetTree, $folderOptions);
+
+        $this->renderTemplate('imageresizer/settings', array(
+            'settings' => $settings,
+            'folderOptions' => $folderOptions,
+            'sourceOptions' => $sourceOptions,
+        ));
+    }
+
     public function actionResizeElementAction()
     {
         $this->requirePostRequest();
@@ -13,6 +42,7 @@ class ImageResizerController extends BaseController
         $imageHeight = craft()->request->getPost('imageHeight');
         $bulkResize = craft()->request->getPost('bulkResize');
         $assetFolderId = craft()->request->getPost('assetFolderId');
+        $taskId = craft()->request->getPost('taskId');
 
         if ($bulkResize) {
             $criteria = craft()->elements->getCriteria(ElementType::Asset);
@@ -22,12 +52,13 @@ class ImageResizerController extends BaseController
         }
 
         craft()->tasks->createTask('ImageResizer', 'Resizing images', array(
+            'taskId' => $taskId,
             'assets' => $assetIds,
             'imageWidth' => $imageWidth,
             'imageHeight' => $imageHeight,
         ));
 
-        craft()->end();
+        $this->returnJson(array('success' => true));
     }
 
     public function actionCropElementAction()
@@ -85,4 +116,36 @@ class ImageResizerController extends BaseController
 
         $this->returnErrorJson(Craft::t('Something went wrong when processing the image.'));
     }
+
+    public function actionClearTasks()
+    {
+        // Function to clear (delete) all stuck tasks.
+        craft()->db->createCommand()->delete('tasks');
+
+        $this->redirect(craft()->request->getUrlReferrer());
+    }
+
+    public function actionGetTaskSummary()
+    {
+        $this->requirePostRequest();
+        $this->requireAjaxRequest();
+        
+        $taskId = craft()->request->getPost('taskId');
+
+        $result = craft()->imageResizer_logs->getLogsForTaskId($taskId);
+
+        $summary = array(
+            'success' => 0,
+            'skipped' => 0,
+            'error' => 0,
+        );
+
+        // Split the logs for this task into success/skipped/error
+        foreach ($result as $entry) {
+            $summary[$entry->result] = $summary[$entry->result] + 1;
+        }
+
+        $this->returnJson(array('summary' => $summary));
+    }
+
 }

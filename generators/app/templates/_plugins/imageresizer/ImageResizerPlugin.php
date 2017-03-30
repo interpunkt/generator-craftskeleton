@@ -14,7 +14,7 @@ class ImageResizerPlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '0.1.4';
+        return '1.0.0';
     }
 
     public function getSchemaVersion()
@@ -47,22 +47,18 @@ class ImageResizerPlugin extends BasePlugin
         return 'https://raw.githubusercontent.com/engram-design/ImageResizer/master/changelog.json';
     }
 
-    public function getSettingsHtml()
+    public function getSettingsUrl()
     {
-        $sourceOptions = array();
-        $folderOptions = array();
-        foreach (craft()->assetSources->getAllSources() as $source) {
-            $sourceOptions[] = array('label' => $source->name, 'value' => $source->id);
-        }
+        return 'imageresizer/settings';
+    }
 
-        $assetTree = craft()->assets->getFolderTreeBySourceIds(craft()->assetSources->getAllSourceIds());
-        craft()->imageResizer->getAssetFolders($assetTree, $folderOptions);
-
-        return craft()->templates->render('imageresizer/settings', array(
-            'settings' => $this->getSettings(),
-            'folderOptions' => $folderOptions,
-            'sourceOptions' => $sourceOptions,
-        ));
+    public function registerCpRoutes()
+    {
+        return array(
+            'imageresizer' => array('action' => 'imageResizer/logs/logs'),
+            'imageresizer/logs' => array('action' => 'imageResizer/logs/logs'),
+            'imageresizer/settings' => array('action' => 'imageResizer/settings'),
+        );
     }
 
     protected function defineSettings()
@@ -75,21 +71,23 @@ class ImageResizerPlugin extends BasePlugin
             'assetSources' => array( AttributeType::Mixed, 'default' => '*' ), // Deprecated
             'assetSourceSettings' => array( AttributeType::Mixed ),
             'skipLarger' => array( AttributeType::Bool, 'default' => true ),
+            'nonDestructiveResize' => array( AttributeType::Bool, 'default' => false ),
+            'nonDestructiveCrop' => array( AttributeType::Bool, 'default' => false ),
 
             // Cropping
             'croppingRatios' => array( AttributeType::Mixed, 'default' => array(
                 array(
-                    'name' => 'Free',
+                    'name' => Craft::t('Free'),
                     'width' => 'none',
                     'height' => 'none',
                 ),
                 array(
-                    'name' => 'Square',
+                    'name' => Craft::t('Square'),
                     'width' => 1,
                     'height' => 1,
                 ),
                 array(
-                    'name' => 'Constrain',
+                    'name' => Craft::t('Constrain'),
                     'width' => 'relative',
                     'height' => 'relative',
                 ),
@@ -124,14 +122,33 @@ class ImageResizerPlugin extends BasePlugin
 
     public function init()
     {
+        if (craft()->request->isCpRequest()) {
+            craft()->templates->includeTranslations(
+                // Resizing Modal
+                'all images in',
+                'image',
+                'Resize Images',
+                'You are about to resize {desc} to be a maximum of {width}px wide and {height}px high. Alternatively, set the width and height limits below for on-demand resizing.',
+                'width',
+                'height',
+                'Caution',
+                'This operation permanently alters your images.',
+                'No images to resize!',
+                'Resizing complete!',
+
+                // Cropping Modal
+                'Aspect Ratio',
+                'Free',
+                'Cancel',
+                'Save',
+                'Image cropped successfully.'
+            );
+        }
+        
         craft()->on('assets.onBeforeUploadAsset', function(Event $event) {
             $path = $event->params['path'];
             $folder = $event->params['folder'];
             $filename = $event->params['filename'];
-
-            // User for overrides on element action
-            $width = null;
-            $height = null;
 
             // If we've triggered this from our cropping action, don't resize too
             if (craft()->httpSession->get('ImageResizer_CropElementAction')) {
@@ -139,31 +156,14 @@ class ImageResizerPlugin extends BasePlugin
                 return true;
             }
 
-            // If this has been trigged from the element actions, bypass everything below
-            if (!craft()->httpSession->get('ImageResizer_ResizeElementAction')) {
-                // We can have settings globally, or per asset source. Check!
-                $sourceEnabled = craft()->imageResizer->getSettingForAssetSource($folder->source->id, 'enabled');
-
-                // Should we be modifying images in this source?
-                if (!$sourceEnabled) {
-                    return true;
-                }
-            } else {
-                // If we are from a element action - delete this so it doesn't persist
-                craft()->httpSession->remove('ImageResizer_ResizeElementAction');
-
-                // We also might ne overriding width/height
-                $width = craft()->httpSession->get('ImageResizer_ResizeElementActionWidth');
-                $height = craft()->httpSession->get('ImageResizer_ResizeElementActionHeight');
-
-                craft()->httpSession->remove('ImageResizer_ResizeElementActionWidth');
-                craft()->httpSession->remove('ImageResizer_ResizeElementActionHeight');
+            // Should we be modifying images in this source?
+            if (!craft()->imageResizer->getSettingForAssetSource($folder->source->id, 'enabled')) {
+                craft()->imageResizer_logs->resizeLog(null, 'skipped-source-disabled', $filename);
+                return true;
             }
 
-            // Is this a manipulatable image?
-            if (ImageHelper::isImageManipulatable(IOHelper::getExtension($filename))) {
-                craft()->imageResizer_resize->resize($folder->source->id, $path, $width, $height);
-            }
+            // Resize the image
+            craft()->imageResizer_resize->resize($folder->source->id, $filename, $path, null, null);
         });
     }
 

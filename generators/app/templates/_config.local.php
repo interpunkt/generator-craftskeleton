@@ -25,5 +25,6 @@ return array(
     'rememberUsernameDuration' => 'P101Y',
 
     'backupDbOnUpdate' => true,
+    'allowAutoUpdates' => true,
 
 );

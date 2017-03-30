@@ -21,7 +21,6 @@ yo craftskeleton
 ### The Craft CMS Plugins
 This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
 
-- [Button Box](https://github.com/supercool/Button-Box)
 - [Cache Buster](https://github.com/focuslabllc/craftcms-cachebuster)
 - [Control Panel Nav](https://github.com/engram-design/CPNav)
 - [CP Field Links](https://github.com/mmikkel/CpFieldLinks-Craft)
@@ -40,7 +39,6 @@ This generator use some plugins. The plugins are already downloaded in `/plugins
 - [Retour](https://github.com/nystudio107/retour)
 - [SEOmatic](https://github.com/nystudio107/seomatic)
 - [Simple Sitemap](https://github.com/xodigital/SimpleSitemap)
-- [Supercool Tools](https://github.com/supercool/Tools)
 - [Super Table](https://github.com/engram-design/SuperTable)
 - [The Architect](https://github.com/Pennebaker/craftcms-thearchitect)
 - [Video Embed Utility](https://github.com/Staplegun-US/craft-video-embed-utility)

@@ -7,6 +7,7 @@ config/config.local.php
 config/config.stage.php
 craft
 public/uploads/**/*
+!public/uploads/**/.gitkeep
 public/dev/styles/
 
 # dev related
@@ -14,3 +15,6 @@ public/dev/styles/
 node_modules
 bower_components
 public/dev/bower_components/
+public/assets/styles/main.min.css
+public/assets/styles/fallback.min.css
+public/assets/scripts/app.min.js

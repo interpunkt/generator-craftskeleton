@@ -23,7 +23,9 @@ var browserSync = require('browser-sync').create();
 //  task: browsersync
 gulp.task('serve', ['sass'], function() {
     browserSync.init({
-        proxy: '<%= local %>'
+        proxy: '<%= local %>',
+        ghostMode: false,
+        notify: false
     });
 
     gulp.watch('public/dev/src/**/*.scss', ['sass']);
@@ -39,7 +41,7 @@ gulp.task('sass', function() {
             precision: 10,
             includePaths: ['.']
         }).on('error', sass.logError))
-        .pipe(autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
+        .pipe(autoprefixer({ browsers: ['> 2%', 'last 2 versions', 'Firefox ESR'] }))
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('public/dev/styles'))
         .pipe(browserSync.stream());

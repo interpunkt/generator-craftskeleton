@@ -1,6 +1,7 @@
 (function() {
+
 Craft.ResizeElementAction = Garnish.Base.extend({
-    
+
     init: function(imageWidth, imageHeight) {
         var settings = {
             width: imageWidth,
@@ -23,7 +24,7 @@ Craft.ResizeElementAction = Garnish.Base.extend({
 });
 
 Craft.BulkResizeAssetFolder = Garnish.Base.extend({
-    
+
     init: function(imageWidth, imageHeight) {
         var settings = {
             width: imageWidth,
@@ -46,8 +47,11 @@ Craft.ResizeModal = Garnish.Modal.extend({
     $selectedItems: null,
     settings: null,
 
+    $container: null,
+    $footer: null,
     $body: null,
     $buttons: null,
+    $closeBtn: null,
     $cancelBtn: null,
     $saveBtn: null,
     $footerSpinner: null,
@@ -63,8 +67,8 @@ Craft.ResizeModal = Garnish.Modal.extend({
         var plural = ($selectedItems.length == 1) ? '' : 's';
 
         // Build the modal
-        var $container = $('<div class="modal fitted image-resizer-modal"></div>').appendTo(Garnish.$bod),
-            $footer = $('<div class="footer"/>').appendTo($container);
+        this.$container = $('<div class="modal fitted image-resizer-modal"></div>').appendTo(Garnish.$bod);
+        this.$footer = $('<div class="footer"/>').appendTo(this.$container);
 
         // Handle case for bulk-resize
         if (settings.bulkResize) {
@@ -73,31 +77,35 @@ Craft.ResizeModal = Garnish.Modal.extend({
             var actionDescription = '<strong>' + $selectedItems.length + '</strong> image' + plural;
         }
 
-        $body = $('<div class="body">' +
+        var bodyHtml = '<div class="body">' +
             '<div class="content">' +
                 '<div class="main">' +
                     '<div class="elements">' +
-                        '<h1>Resize Images</h1>' +
-                        '<p>You are about to resize ' + actionDescription + ' to be a maximum of ' + settings.width + 'px wide and ' + settings.height + 'px high. Alternatively, set the width and height limits below for on-demand resizing.</p>' +
+                        '<h1>' + Craft.t('Resize Images') + '</h1>' +
+                        '<p>' + Craft.t('You are about to resize {desc} to be a maximum of {width}px wide and {height}px high. Alternatively, set the width and height limits below for on-demand resizing.', { desc: actionDescription, width: settings.width, height: settings.height }) + '</p>' +
 
-                        '<input class="text" type="text" id="settings-imageWidth" size="10" name="settings[imageWidth]" value="' + settings.width + '" autocomplete="off"> width &nbsp;&nbsp;' +
-                        '<input class="text" type="text" id="settings-imageHeight" size="10" name="settings[imageHeight]" value="' + settings.height + '" autocomplete="off"> height' +
+                        '<input class="text" type="text" id="settings-imageWidth" size="10" name="settings[imageWidth]" value="' + settings.width + '" autocomplete="off"> ' + Craft.t('width') + ' &nbsp;&nbsp;' +
+                        '<input class="text" type="text" id="settings-imageHeight" size="10" name="settings[imageHeight]" value="' + settings.height + '" autocomplete="off"> ' + Craft.t('height') + 
 
-                        '<p><strong>Caution:</strong> This operation permanently alters your images.</p>' +
+                        '<p><strong>' + Craft.t('Caution') + ':</strong> ' + Craft.t('This operation permanently alters your images.') + '</p>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
-        '</div>').appendTo($container);
+        '</div>';
 
-        this.base($container, this.settings);
+        $body = $(bodyHtml).appendTo(this.$container);
 
-        this.$footerSpinner = $('<div class="spinner hidden"/>').appendTo($footer);
-        this.$buttons = $('<div class="buttons rightalign first"/>').appendTo($footer);
-        this.$cancelBtn = $('<div class="btn">'+Craft.t('Cancel')+'</div>').appendTo(this.$buttons);
+        this.base(this.$container, this.settings);
+
+        this.$footerSpinner = $('<div class="spinner hidden"/>').appendTo(this.$footer);
+        this.$buttons = $('<div class="buttons rightalign first"/>').appendTo(this.$footer);
+        this.$closeBtn = $('<div class="btn close hidden">'+Craft.t('Close')+'</div>').appendTo(this.$buttons);
+        this.$cancelBtn = $('<div class="btn cancel">'+Craft.t('Cancel')+'</div>').appendTo(this.$buttons);
         this.$saveBtn = $('<div class="btn submit">'+Craft.t('Resize')+'</div>').appendTo(this.$buttons);
 
         this.$body = $body;
 
+        this.addListener(this.$closeBtn, 'activate', 'onFadeOut');
         this.addListener(this.$cancelBtn, 'activate', 'onFadeOut');
         this.addListener(this.$saveBtn, 'activate', 'saveSettings');
     },
@@ -122,47 +130,61 @@ Craft.ResizeModal = Garnish.Modal.extend({
         var imageWidth = this.$body.find('#settings-imageWidth').val();
         var imageHeight = this.$body.find('#settings-imageHeight').val();
 
+        // Generate a random ID to keep track of this task run
+        var taskId = this.generateId();
+
         if (this.settings.bulkResize) {
-            var data = { 
-                bulkResize: this.settings.bulkResize, 
-                assetFolderId: this.settings.assetFolderId, 
-                imageWidth: imageWidth, 
-                imageHeight: imageHeight, 
+            var data = {
+                taskId: taskId,
+                bulkResize: this.settings.bulkResize,
+                assetFolderId: this.settings.assetFolderId,
+                imageWidth: imageWidth,
+                imageHeight: imageHeight,
             }
         } else {
-            var data = { 
-                assetIds: dataIds, 
-                imageWidth: imageWidth, 
-                imageHeight: imageHeight, 
+            var data = {
+                taskId: taskId,
+                assetIds: dataIds,
+                imageWidth: imageWidth,
+                imageHeight: imageHeight,
             }
         }
 
+        // Trigger the task creation
         Craft.postActionRequest('imageResizer/resizeElementAction', data, $.proxy(function(response, textStatus) {}, this));
-            
-        new Craft.ResizeTaskProgress(this, function() {
+
+        new Craft.ResizeTaskProgress(this, taskId, function() {
             modal.$footerSpinner.addClass('hidden');
 
-            // In this case, no images were resized at all!
-            if (modal.$body.find('.task').length == 0) {
-                var $container = $('<div class="task"/>').appendTo(modal.$body.find('.main'));
-                var $statusContainer = $('<div class="task-status"/>').appendTo($container);
-                $('<div><div data-icon="check"> ' + Craft.t('No images to resize!') + '</div>').appendTo($statusContainer);
-            }
+            modal.$closeBtn.removeClass('hidden');
+            modal.$cancelBtn.addClass('hidden');
+            modal.$saveBtn.addClass('hidden');
 
             setTimeout($.proxy(function() {
-                modal.onFadeOut();
-
                 if (Craft.elementIndex) {
                     Craft.elementIndex.updateElements();
                 }
             }), 1000);
-               
+
         });
-    }
+    },
+
+    generateId: function() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 5; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        return text;
+    },
+
 });
 
 Craft.ResizeTaskProgress = Garnish.Base.extend({
     modal: null,
+    taskId: null,
 
     tasksById: null,
     completedTasks: null,
@@ -172,19 +194,24 @@ Craft.ResizeTaskProgress = Garnish.Base.extend({
 
     callback: null,
 
-    init: function(modal, callback) {
+    init: function(modal, taskId, callback) {
         this.modal = modal;
+        this.taskId = taskId;
         this.callback = callback;
         this.tasksById = {};
         this.completedTasks = [];
 
         // Force the tasks icon to run
         setTimeout($.proxy(function() {
-            this.updateTasks();
-        }, this), 1000);
+            // Trigger running the task - from JS so as not to lock the browser session
+            Craft.postActionRequest('tasks/runPendingTasks', $.proxy(function(taskInfo, textStatus) {}, this));    
+        }, this), 500);
 
-        Craft.cp.stopTrackingTaskProgress();
-    },
+        // Force the tasks icon to run
+        setTimeout($.proxy(function() {
+            this.updateTasks();
+        }, this), 1500);
+	},
 
     updateTasks: function() {
         this.completed = false;
@@ -202,6 +229,13 @@ Craft.ResizeTaskProgress = Garnish.Base.extend({
 
         if (taskInfo) {
             newTaskIds.push(taskInfo.id);
+        } else {
+            // Likely too fast for Craft to register this was even a task!
+            var progressTask = new Craft.ResizeTaskProgress.Task(this.modal, this.taskId, taskInfo);
+            progressTask.complete();
+
+            this.completed = true;
+            this.callback();
         }
 
         for (var id in this.tasksById) {
@@ -226,7 +260,7 @@ Craft.ResizeTaskProgress = Garnish.Base.extend({
             if (this.tasksById[taskInfo.id]) {
                 this.tasksById[taskInfo.id].updateStatus(taskInfo);
             } else {
-                this.tasksById[taskInfo.id] = new Craft.ResizeTaskProgress.Task(this.modal, taskInfo);
+                this.tasksById[taskInfo.id] = new Craft.ResizeTaskProgress.Task(this.modal, this.taskId, taskInfo);
             }
 
             if (anyTasksRunning) {
@@ -234,15 +268,10 @@ Craft.ResizeTaskProgress = Garnish.Base.extend({
             } else {
                 this.completed = true;
 
-                if (anyTasksFailed) {
-                    Craft.cp.setRunningTaskInfo({ status: 'error' });
-                }
-
                 this.callback();
             }
         } else {
             this.completed = true;
-            Craft.cp.setRunningTaskInfo(null);
 
             this.callback();
         }
@@ -250,6 +279,7 @@ Craft.ResizeTaskProgress = Garnish.Base.extend({
 });
 
 Craft.ResizeTaskProgress.Task = Garnish.Base.extend({
+    taskId: null,
     modal: null,
     id: null,
     level: null,
@@ -264,19 +294,24 @@ Craft.ResizeTaskProgress.Task = Garnish.Base.extend({
 
     _progressBar: null,
 
-    init: function(modal, info) {
+    init: function(modal, taskId, info) {
+        this.taskId = taskId;
         this.modal = modal;
 
-        this.id = info.id;
-        this.level = info.level;
-        this.description = info.description;
+        if (info) {
+            this.id = info.id;
+            this.level = info.level;
+            this.description = info.description;
+        }
 
         this.$container = $('<div class="task"/>').appendTo(this.modal.$body.find('.main'));
         this.$statusContainer = $('<div class="task-status"/>').appendTo(this.$container);
 
         this.$container.data('task', this);
 
-        this.updateStatus(info);
+        if (info) {
+            this.updateStatus(info);
+        }
     },
 
     updateStatus: function(info) {
@@ -284,31 +319,41 @@ Craft.ResizeTaskProgress.Task = Garnish.Base.extend({
             this.$statusContainer.empty();
             this.status = info.status;
 
-            this._progressBar = new Craft.ProgressBar(this.$statusContainer);
-            this._progressBar.showProgressBar();
+            switch (this.status) {
+                case 'running': {
+                    this._progressBar = new Craft.ProgressBar(this.$statusContainer);
+                    this._progressBar.showProgressBar();
+                    break;
+                }
+                case 'error': {
+                    $('<div class="error">' + Craft.t('Processing failed. <a class="go" href="' + Craft.getUrl('imageresizer/logs') + '">View logs</a>') + '</div>').appendTo(this.$statusContainer);
+                    break;
+                }
+            }
         }
 
         if (this.status == 'running') {
             this._progressBar.setProgressPercentage(info.progress*100);
-
-            if (this.level == 0) {
-                // Update the task icon
-                Craft.cp.setRunningTaskInfo(info, true);
-            }
         }
     },
 
     complete: function()
     {
-        this.$statusContainer.empty();
-        $('<div><div data-icon="check"> ' + Craft.t('Resizing complete!') + '</div>').appendTo(this.$statusContainer);
+        // Get the summary of our processing
+        Craft.postActionRequest('imageResizer/getTaskSummary', { taskId: this.taskId }, $.proxy(function(taskInfo, textStatus) {
+            if (textStatus == 'success') {
+                var html = '<span class="success">' + Craft.t('Success') + ': ' + taskInfo.summary.success + ', </span>' + 
+                    '<span class="skipped">' + Craft.t('Skipped') + ': ' + taskInfo.summary.skipped + ', </span>' + 
+                    '<span class="error">' + Craft.t('Error') + ': ' + taskInfo.summary.error + ' </span>' + 
+                    '<a class="go" href="' + Craft.getUrl('imageresizer/logs') + '">' + Craft.t('View logs') + '</a>';
+
+                this.$statusContainer.empty();
+                $('<div>' + html + '</div>').appendTo(this.$statusContainer);
+            }
+        }, this));
     },
 
     destroy: function() {
-        if (this.modal.tasksById[this.id]) {
-            delete this.modal.tasksById[this.id];
-        }
-
         this.$container.remove();
         this.base();
     }

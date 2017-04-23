@@ -4,7 +4,9 @@
 ***
 
 ## 1. Installation
-First, install [Yeoman](http://yeoman.io) and generator-craftskeleton using [npm](https://www.npmjs.com/) (I assume you have pre-installed [node.js](https://nodejs.org/)).
+First; install **wget**, because the generator use it for downloading the actual Craftcms version. Check the [wget for mac](https://www.hacksparrow.com/how-to-install-wget-on-your-mac.html) or [wget for windows](http://gnuwin32.sourceforge.net/packages/wget.htm).
+
+Second; install [Yeoman](http://yeoman.io) and generator-craftskeleton using [npm](https://www.npmjs.com/) (I assume you have pre-installed [node.js](https://nodejs.org/)).
 ```bash
 npm install -g yo
 npm install -g generator-craftskeleton

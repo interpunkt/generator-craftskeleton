@@ -1,5 +1,5 @@
 # Craft CMS Generator
-> Starterkit for Craft CMS (Mutli Envs, Gulp, Bower and SASS/SCSS with Sourcemaps)
+> Starterkit for Craft CMS 2.x (Multi-Environment Configs with HeartyConfig, Gulp, and Bower for Dependencie-Management)
 
 ***
 
@@ -12,13 +12,19 @@ npm install -g yo
 npm install -g generator-craftskeleton
 ```
 
-***
+## 2. Setup local installation
+1. Download this repository on your local machine.  
+2. Create a local vhost – I prefere [MAMP Pro](https://www.mamp.info/de/mamp-pro/) – which is pointing on `/public` in this project.
+3. Create a database with the same name in the config file: `/config/config.local.php`.
+4. Run `npm install && bower install`.
 
-## 2. Getting started
+## 3. Getting started
 Now you’re ready to run the generator:
 ```bash
 yo craftskeleton
 ```
+
+***
 
 ### The Craft CMS Plugins
 This generator use some plugins. The plugins are already downloaded in `/plugins/`. If you want to use them, you have to activate them in the backend.
@@ -45,7 +51,6 @@ This generator use some plugins. The plugins are already downloaded in `/plugins
 - [The Architect](https://github.com/Pennebaker/craftcms-thearchitect)
 - [Video Embed Utility](https://github.com/Staplegun-US/craft-video-embed-utility)
 
-
 ### Run your Development Environment
 To start coding you can run `gulp` in your root directory. If you want to get your production-files just run `gulp build`.
 
@@ -56,9 +61,11 @@ bower install --save [DEPENDENCIE NAME]
 ```
 
 ***
+
 ## Thanks [WebDevs Family](http://webdevs.xyz/)
 Big thanks to my friends [Sascha Fuchs](https://github.com/gisu), [David Hellmann](https://github.com/davidhellmann) and [Martin Herweg](https://github.com/martinherweg) and of course to all the members from our Slack Channel [webdevs](http://webdevs.xyz/) (feel free to join us). Your helped me a lot and you guys are a big inspiration!
 
 ***
+
 ## License
-MIT © [inter-punkt. ag](http://inter-punkt.ch/)
+MIT © [interpunkt. ag](http://interpunkt.ch)

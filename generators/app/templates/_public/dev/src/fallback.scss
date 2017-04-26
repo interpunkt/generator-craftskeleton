@@ -1,9 +1,10 @@
 //  --------------------------------------------------------
 //  fallback css for ie9 or later
-//  copyright 2015 - 2016 by inter-punkt.ag
-//  autor: selim imoberdorf
+//  copyright 2015 - 2017 by interpunkt. ag
+//  author: selim imoberdorf
 //  --------------------------------------------------------
 
+@import "______tools/tools.mixin.space";
 @import "_______settings/settings.colors";
 @import "_______settings/settings.typo";
 @import "_______settings/settings.layout";
@@ -14,7 +15,7 @@ body {
     height     : 100%;
     min-height : 100%;
     overflow   : hidden;
-
+    
     > * {
         display : none !important;
     }
@@ -23,42 +24,42 @@ body {
 //  Fallback Styles
 .fallback {
     display          : block !important;
-    padding          : 20px;
+    padding          : s(5);
     position         : absolute;
     max-width        : 640px;
-    top              : 80px;
+    top              : s(12);
     left             : 50%;
     margin-left      : -340px;
-    background-color : $COLOR-ACCENT;
-    color            : $COLOR-BRAND;
-
+    background-color : $COLOR-WHITE;
+    
     & h2 {
-        color : $COLOR-BRAND;
+        color      : $COLOR-BLACK;
+        margin-top : 0;
     }
-
+    
     & a:active,
     & a:focus,
     & a:hover {
-        text-decoration : underline;
+        text-decoration : none;
     }
-
+    
     & &__link {
         margin          : 30px 0 0;
         padding         : 10px 20px;
         display         : inline-block;
-        border          : 2px solid $COLOR-BRAND;
-        color           : $COLOR-BRAND;
+        border          : 2px solid $COLOR-BLACK;
+        color           : $COLOR-BLACK;
         text-align      : center;
         font-size       : 20px;
         text-transform  : uppercase;
         text-decoration : none;
     }
-
+    
     & &__link:active,
     & &__link:focus,
     & &__link:hover {
-        background-color : $COLOR-ACCENT;
-        border           : 2px solid $COLOR-ACCENT;
+        color            : $COLOR-WHITE;
+        background-color : $COLOR-BLACK;
         text-decoration  : none;
     }
 }

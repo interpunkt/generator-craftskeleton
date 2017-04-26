@@ -1,7 +1,7 @@
 //  --------------------------------------------------------
 //  global typo variables
-//  copyright 2015 - 2016 by inter-punkt.ag
-//  autor: selim imoberdorf
+//  copyright 2015 - 2017 by interpunkt. ag
+//  author: selim imoberdorf
 //  --------------------------------------------------------
 
 //  --------------------------------------------------------
@@ -11,40 +11,8 @@
 $FONT-PRIMARY : Helvetica, Arial, sans-serif;
 
 //  --------------------------------------------------------
-//  font weights
+//  line-height's
 //  --------------------------------------------------------
-
-$FONT-WEIGHT-NORMAL : 400;
-$FONT-WEIGHT-BOLD : 700;
-
-//  --------------------------------------------------------
-//  base font sizes
-//  --------------------------------------------------------
-
-$BASE-FONT-SIZE : 16px;
-$BASE-FONT-SIZE-SMALL : 14px;
-$BASE-FONT-SIZE-MEDIUM : 18px;
-$BASE-FONT-SIZE-BIG : 22px;
 
 $BASE-LINE-HEIGHT : 1.5;
-
-//  --------------------------------------------------------
-//  heading font sizes
-//  --------------------------------------------------------
-
-$HEADING-H1 : 48px;
-$HEADING-H2 : 36px;
-$HEADING-H3 : 28px;
-$HEADING-H4 : 20px;
-$HEADING-H5 : 18px;
-$HEADING-H6 : 14px;
-
 $HEADING-LINE-HEIGHT : 1.2;
-
-//----------------------------------------------------------
-// font-smoothing
-//----------------------------------------------------------
-
-%font-smooting {
-    -webkit-font-smoothing : antialiased;
-}

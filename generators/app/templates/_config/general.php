@@ -33,6 +33,8 @@ $customConfig = array(
             'uploadUrl' => CRAFT_SITE_URL . 'uploads',
             'imagePath' => BASEPATH . 'public/uploads/images',
             'imageUrl' => CRAFT_SITE_URL . 'uploads/images',
+            'documentPath' => BASEPATH . 'public/uploads/documents',
+            'documentUrl' => CRAFT_SITE_URL . 'uploads/documents',
             'assetsPath' => BASEPATH . 'public/assets',
             'assetsUrl' => CRAFT_SITE_URL . 'assets',
         ),

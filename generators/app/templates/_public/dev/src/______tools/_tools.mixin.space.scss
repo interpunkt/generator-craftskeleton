@@ -1,7 +1,14 @@
 //  --------------------------------------------------------
-//  example component
+//  space converter
 //  copyright 2015 - 2017 by interpunkt. ag
 //  author: selim imoberdorf
 //  --------------------------------------------------------
 
-.c-example {}
+@function space($key) {
+    @return round(($ip-space * $key) + 0px);
+}
+
+// Shorthand Version
+@function s($key) {
+    @return space($key);
+}

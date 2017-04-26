@@ -1,7 +1,7 @@
 //  --------------------------------------------------------
 //  global app scss
-//  copyright 2015 - 2016 by inter-punkt.ag
-//  autor: selim imoberdorf
+//  copyright 2015 - 2017 by interpunkt. ag
+//  author: selim imoberdorf
 //  --------------------------------------------------------
 
 @charset "UTF-8";
@@ -16,6 +16,10 @@
 //  --------------------------------------------------------
 //  02: tools
 //  --------------------------------------------------------
+@import "../bower_components/include-media/dist/include-media";
+@import "______tools/tools.mixin.fluid";
+@import "______tools/tools.mixin.space";
+@import "______tools/tools.mixin.ease";
 @import "______tools/tools.mixin.clearfix";
 @import "______tools/tools.mixin.center";
 

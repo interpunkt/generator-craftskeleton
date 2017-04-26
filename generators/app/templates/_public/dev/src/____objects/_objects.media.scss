@@ -1,7 +1,7 @@
 //  --------------------------------------------------------
 //  media element with image
-//  copyright 2015 - 2016 by inter-punkt.ag
-//  autor: selim imoberdorf
+//  copyright 2015 - 2017 by interpunkt. ag
+//  author: selim imoberdorf
 //  --------------------------------------------------------
 
 .o-media {
@@ -10,7 +10,7 @@
 
     &__img {
         flex          : 1 1 auto;
-        padding-right : $SPACE;
+        padding-right : s(5);
 
         > img {
             display : block;

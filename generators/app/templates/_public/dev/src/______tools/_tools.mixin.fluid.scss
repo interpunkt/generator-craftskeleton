@@ -1,0 +1,42 @@
+/* --------------------------------------------------
+    #FLUID TYPE
+    Responsive Type
+    More Infos: http://madebymike.com.au/writing/fluid-type-calc-examples/
+
+    Font-Size property
+    html {
+      @include fluid(14px, 18px);
+    }
+
+    Other property (1 to x properties)
+    h1 {
+      @include fluid(20px, 30px, padding-top padding-bottom);
+    }
+   -------------------------------------------------- */
+
+@mixin fluid($min-value, $max-value, $properties: font-size, $min-vw: $ip-width-min, $max-vw: $ip-width-max) {
+    @each $property in $properties {
+        #{$property}: $min-value;
+    }
+    
+    @media screen and (min-width: $min-vw) {
+        @each $property in $properties {
+            #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+        }
+    }
+    
+    @media screen and (min-width: $max-vw) {
+        @each $property in $properties {
+            #{$property}: $max-value;
+        }
+    }
+}
+
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+// Shorthand Version
+@mixin f($args...) {
+    @include fluid-type($args...);
+}

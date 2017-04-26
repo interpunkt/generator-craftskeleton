@@ -5,10 +5,25 @@
 # craft related
 config/config.local.php
 config/config.stage.php
+config/config.live.php
 craft
-public/uploads/**/*
-!public/uploads/**/.gitkeep
-public/dev/styles/
+public/uploads/*
+
+# folder upload: images
+!public/uploads/images
+public/uploads/images/*
+!public/uploads/images/.gitkeep
+!public/uploads/images/content/
+public/uploads/images/content/*
+!/public/uploads/images/content/.gitkeep
+
+# folder upload: documents
+!public/uploads/documents
+public/uploads/documents/*
+!public/uploads/documents/.gitkeep
+!public/uploads/documents/content/
+public/uploads/documents/content/*
+!/public/uploads/documents/content/.gitkeep
 
 # dev related
 .idea

@@ -1,7 +1,7 @@
 {
     "name": "generator-craftskeleton",
-    "version": "0.4.2",
-    "description": "Starterkit for Craft CMS (Mutli Envs, Gulp and Bower) made by Selim Imoberdorf.",
+    "version": "0.4.3",
+    "description": "Starterkit for Craft CMS 2.x (Multi-Environment Configs with HeartyConfig, Gulp, and Bower for Dependencie-Management) made by interpunkt. ag",
     "homepage": "",
     "author": {
         "name": "Selim «Slim» Imoberdorf",
